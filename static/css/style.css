@@ -4,7 +4,6 @@ body {
 	padding: 0;
 	background-color: white;
 	height: 100%;
-
 }
 
 .nav {
@@ -17,7 +16,7 @@ body {
 	align-items: center;
 }
 
-.left-nav{
+.left-nav {
 	display: flex;
 	align-items: center;
 }
@@ -28,9 +27,6 @@ body {
 	display: flex;
 	align-items: center;
 }
-
-
-
 
 .nav-items {
 	display: flex;
@@ -44,16 +40,12 @@ body {
 	font-size: 1.2rem;
 }
 
-
 .logo img {
 	padding: 5px 20px;
-	margin: 2px;	
+	margin: 2px;
 }
 
-
-
 /*style for the navbar*/
-
 
 /* .a {
  	margin-top: 100px;
@@ -80,17 +72,15 @@ body {
 
 /* style for the navlinks*/
 
-
- .nav a:hover {
+.nav a:hover {
 	color: white;
 	text-decoration-color: black;
-	
-}	
+}
 
 .footer {
 	flex-flow: row wrap;
 	position: absolute;
-	height:auto;	
+	height: auto;
 	color: white;
 	background-color: green;
 	margin-top: 10px;
@@ -100,9 +90,9 @@ body {
 	width: 100%;
 }
 
-.img{
-	background-image: url('images/background.jpeg');
+.img {
+	background-image: url('/static/images/background.jpeg');
 	opacity: 0.7;
 	height: 100%;
-	width:100%;
+	width: 100%;
 }
