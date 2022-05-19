@@ -1,98 +1,111 @@
+<?php include "header.php" ?>
+<!-- ======= Team Section ======= -->
 
-<?php include_once('partials/header.php'); 
-@include 'connection.php';
-?>
-
-
-	<style type="text/css">
- 
-	/*h2 {
-		text-align: center;
-		font-family: sans-serif;
-	}*/
-
-	.content {
-		text-align: justify-all;
-		width: 70%;
-		margin: 50px;
-		padding: 30px;
-		
-		font-size: 20px;
-		font-family: helvetica;
-		
-	
-	}
-
-	
-	.p {
-		text-align: center;
-
-	}
-
-	.members-contents {
- 	 display: flex;
- 	 width: 100%;
-	}
-
-	.flex-container {
-		height: auto;
-		position: relative;
- 	 background-color: green;
- 	 display: flex;
- 	 font-size: 15px;
- 	 flex-direction: column;
- 	 align-items: center;
- 	 
-	}
-
-	.img-fluid {
-	 align-content: center;
-	 padding: 10px;
-	}
-
-	.members-column{
-		margin: 30px;
-		align-content: center;
-		padding: 5px;
-		display: flex;
-	   padding-left: 30px;
-	   background-color: white;
-	   justify-content: space-between;
-	  height: auto;
-
-	}
-
-	
-</style>
 <body>
-		<section class="about">
-			<div class="content">
+    <!-- ======= Hero Section ======= -->
 
-					<p>The franchised structure of the business together with the disciplined procedures and recipes helped create a consistency of quality that has led to 'The Cheesecake Shop' brand achieving exceptionally strong consumer awareness and preference.<br>Today the brand is synonymous with immaculately presented, hand-crafted delicious cakes, loved by a generations of Australians and New Zealanders. </p>
-			</div>	
+    <main id="main mt-2">
 
-	</section>
+        <section id="about">
+            <div class="container" data-aos="fade-up">
+                <div class="row about-container">
 
+                    <div class="col-lg-6 content order-lg-1 order-2">
+                        <h2 class="title">Few Words About Us</h2>
+                        <p>
+                            We make cakes with cheese and its awesome
+                        </p>
 
-						<div class="flex-container">
-						<h2> Team Members</h2>
-						
-						<div class="members-contents">
-						<div class="members-column">
-						<img class="img-fluid" src="images/sandhya.jpeg" width="25%" height="auto" alt="" /> 
-						<h6 class="card-title mb-3">Sandhya kharal</h6>
-						<span>Student ID K190640</span>
-						</div>  
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
 
-						<div class="members-column">
-						<img class="img-fluid" src="images/isha.png" width="25%" height="auto" alt="" />
-						<h6 class="card-title mb-3">Isha Bajgain</h6>
-						<span>Student ID K191247</span>
-						</div>
-			</div>
-</div>
+                            <h4 class="title"><a href="">Fresh</a></h4>
+                            <p class="description">We make fresh cakes</p>
+                        </div>
 
-	</body>		
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
 
-<?php include_once('partials/footer.php'); ?>
+                            <h4 class="title"><a href="">Use of pure milk</a></h4>
+                            <p class="description">We use certified milk for our cakes</p>
+                        </div>
 
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+
+                            <h4 class="title"><a href="">we are in this business since 2000</a></h4>
+                            <p class="description">We know how to serve and how to make cake</p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 background order-lg-2 order-1" data-aos="fade-left" data-aos-delay="100"></div>
+                </div>
+
+            </div>
+        </section><!-- End About Section -->
+        <section id="team">
+            <div class="container" data-aos="fade-up">
+                <div class="section-header">
+                    <h3 class="section-title">Team</h3>
+                    <p class="section-description">We made this possible</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="member" data-aos="fade-up" data-aos-delay="100">
+                            <div class="pic"><img src="../assets/img/team-1.jpg" alt=""></div>
+                            <h4>Walter White</h4>
+                            <span>Chief Executive Officer</span>
+                            <div class="social">
+                                <a href=""><i class="bi bi-twitter"></i></a>
+                                <a href=""><i class="bi bi-facebook"></i></a>
+                                <a href=""><i class="bi bi-instagram"></i></a>
+                                <a href=""><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="member" data-aos="fade-up" data-aos-delay="200">
+                            <div class="pic"><img src="../assets/img/team-2.jpg" alt=""></div>
+                            <h4>Sarah Jhinson</h4>
+                            <span>Product Manager</span>
+                            <div class="social">
+                                <a href=""><i class="bi bi-twitter"></i></a>
+                                <a href=""><i class="bi bi-facebook"></i></a>
+                                <a href=""><i class="bi bi-instagram"></i></a>
+                                <a href=""><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="member" data-aos="fade-up" data-aos-delay="300">
+                            <div class="pic"><img src="../assets/img/team-3.jpg" alt=""></div>
+                            <h4>William Anderson</h4>
+                            <span>CTO</span>
+                            <div class="social">
+                                <a href=""><i class="bi bi-twitter"></i></a>
+                                <a href=""><i class="bi bi-facebook"></i></a>
+                                <a href=""><i class="bi bi-instagram"></i></a>
+                                <a href=""><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="member" data-aos="fade-up" data-aos-delay="400">
+                            <div class="pic"><img src="../assets/img/team-4.jpg" alt=""></div>
+                            <h4>Amanda Jepson</h4>
+                            <span>Accountant</span>
+                            <div class="social">
+                                <a href=""><i class="bi bi-twitter"></i></a>
+                                <a href=""><i class="bi bi-facebook"></i></a>
+                                <a href=""><i class="bi bi-instagram"></i></a>
+                                <a href=""><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Team Section -->
+    </main>
+</body>

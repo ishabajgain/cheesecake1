@@ -79,7 +79,6 @@ body {
 
 .footer {
 	flex-flow: row wrap;
-	position: absolute;
 	height: auto;
 	color: white;
 	background-color: green;
@@ -95,4 +94,7 @@ body {
 	opacity: 0.7;
 	height: 100%;
 	width: 100%;
+}
+
+.content {
 }

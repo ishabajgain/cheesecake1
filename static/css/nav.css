@@ -1,10 +1,10 @@
 nav {
 	height: 6rem;
 	width: 100vw;
-	background-color: #1342fd;
+	background-color: #000000;
 	box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
 	display: flex;
-	position: fixed;
+	/* position: fixed; */
 	z-index: 10;
 }
 
@@ -50,7 +50,7 @@ nav {
 	height: 3px;
 	width: 0%;
 	background-color: #61dafb;
-	position: absolute;
+	/* position: absolute; */
 	transition: all ease-in-out 250ms;
 	margin: 0 0 0 0;
 }
