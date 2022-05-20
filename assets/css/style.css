@@ -77,6 +77,8 @@ h6 {
 --------------------------------------------------------------*/
 #header {
 	height: 90px;
+	padding-bottom: 5px;
+	position: relative;
 	transition: all 0.5s;
 	z-index: 997;
 	background: rgba(52, 59, 64, 0.9);
@@ -680,7 +682,6 @@ section {
 /* products Section
 --------------------------------*/
 #products {
-	margin-top: 130px;
 	background: #f7f7f7;
 	padding: 80px 0;
 }
@@ -1011,4 +1012,8 @@ section {
 	text-align: center;
 	font-size: 13px;
 	color: #ccc;
+}
+
+.products-inline-break {
+	display: inline-block;
 }

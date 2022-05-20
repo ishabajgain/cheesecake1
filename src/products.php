@@ -1,46 +1,46 @@
 <?php include "header.php";
-include "connection.php";
 ?>
 <div>
     <section class="content">
         <!-- ======= products Section ======= -->
-        <section id="products" class="products">
+        <section id="products" class="main products">
             <div class="container" data-aos="fade-up">
                 <div class="section-header">
-                    <h3 class="section-title">products</h3>
-                    <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+                    <h3 class="section-title">
+                        <?php
+                        include "connection.php";
+                        $cid = $_GET['cid'];
+                        $stmt = $pdo->prepare("SELECT * FROM categories WHERE id=$cid");
+                        $stmt->execute();
+                        foreach ($stmt as $row) {
+                        ?>
+                            Our <?php echo $row['title']; ?>
+                        <?php } ?></h3>
+
                 </div>
+                <div class="col-12">
+                    <?php
+                    include "connection.php";
+                    $cid = $_GET['cid'];
+                    $stmt = $pdo->prepare("SELECT * FROM products WHERE category_id = $cid");
+
+                    $stmt->execute();
+                    foreach ($stmt as $row) {
+                    ?>
+                        <div class="row products-container products-inline-break" data-aos="fade-up" data-aos-delay="200">
+                            <div class=" products-item filter-app">
+                                <img src="../assets/img/products/<?php echo $row['image_path']; ?>" class="img-fluid" alt="image of product">
+                                <div class="products-info">
+                                    <h4><?php echo $row['title']; ?></h4>
+                                    <p><?php echo "$ " . number_format($row['price'], 2); ?></p>
+                                    <a <?php echo 'href="productDescription.php?pid=' . $row['id'] . '"' ?>" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php } ?>
 
 
-
-                <div class="row products-container" data-aos="fade-up" data-aos-delay="200">
-                    <div class="col-lg-4 col-md-6 products-item filter-app">
-                        <img src="../assets/img/products/products-1.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-4 col-md-6 products-item filter-web">
-                        <img src="../assets/img/products/products-2.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-4 col-md-6 products-item filter-app">
-                        <img src="../assets/img/products/products-3.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-4 col-md-6 products-item filter-card">
-                        <img src="../assets/img/products/products-4.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-4 col-md-6 products-item filter-web">
-                        <img src="../assets/img/products/products-5.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-4 col-md-6 products-item filter-app">
-                        <img src="../assets/img/products/products-6.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-4 col-md-6 products-item filter-card">
-                        <img src="../assets/img/products/products-7.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-4 col-md-6 products-item filter-card">
-                        <img src="../assets/img/products/products-8.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-4 col-md-6 products-item filter-web">
-                        <img src="../assets/img/products/products-9.jpg" class="img-fluid" alt="">
-                    </div>
                 </div>
             </div>
         </section><!-- End products Section -->

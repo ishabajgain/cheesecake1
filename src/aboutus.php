@@ -50,59 +50,22 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="member" data-aos="fade-up" data-aos-delay="100">
-                            <div class="pic"><img src="../assets/img/team-1.jpg" alt=""></div>
-                            <h4>Walter White</h4>
-                            <span>Chief Executive Officer</span>
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
+                            <div class="pic"><img src="../assets/img/isha.png" alt=""></div>
+                            <h4>Isha Bajgain</h4>
+                            <span>Student ID:K191247</span>
+
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6">
                         <div class="member" data-aos="fade-up" data-aos-delay="200">
-                            <div class="pic"><img src="../assets/img/team-2.jpg" alt=""></div>
-                            <h4>Sarah Jhinson</h4>
-                            <span>Product Manager</span>
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
+                            <div class="pic"><img src="../assets/img/sandhya.jpeg" alt=""></div>
+                            <h4>Sandhya Kharal</h4>
+                            <span>Student ID: K190640</span>
+
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="member" data-aos="fade-up" data-aos-delay="300">
-                            <div class="pic"><img src="../assets/img/team-3.jpg" alt=""></div>
-                            <h4>William Anderson</h4>
-                            <span>CTO</span>
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="member" data-aos="fade-up" data-aos-delay="400">
-                            <div class="pic"><img src="../assets/img/team-4.jpg" alt=""></div>
-                            <h4>Amanda Jepson</h4>
-                            <span>Accountant</span>
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>

@@ -5,13 +5,12 @@
       <meta charset="utf-8">
       <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-      <title>Regna Bootstrap Template</title>
+      <title>Cheesecake shop</title>
       <meta content="" name="description">
       <meta content="" name="keywords">
 
       <!-- Favicons -->
-      <link href="../assets/img/favicon.png" rel="icon">
-      <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+      <link href="../assets/img/logo.png" rel="icon">
 
       <!-- Google Fonts -->
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
@@ -33,37 +32,32 @@
       <div class="container d-flex justify-content-between align-items-center">
 
           <div id="logo">
-              <a href="index.php"><img src="../assets/img/logo.png" alt=""></a>
+              <a href="index.php"><img src="../assets/img/logo.png" class="w-25 h-25" alt=""></a>
               <!-- Uncomment below if you prefer to use a text logo -->
               <!--<h1><a href="index.html">Regna</a></h1>-->
           </div>
 
           <nav id="navbar" class="navbar">
               <ul>
-
-
-
                   <li><a class="nav-link scrollto" href="index.php">Home</a></li>
                   <li><a class="nav-link scrollto" href="aboutus.php">About</a></li>
-                  <li><a class="nav-link scrollto" href="products.php">Products</a></li>
+
+                  <li class="dropdown"><a href="#"><span>Products</span> <i class="bi bi-chevron-down"></i></a>
+                      <ul>
+                          <?php
+                            include "connection.php";
+                            $stmt = $pdo->prepare("SELECT * FROM categories WHERE id");
+                            $stmt->execute();
+                            foreach ($stmt as $row) {
+                            ?>
+                          <li>
+                              <a href="products.php?cid=<?php echo $row['id']; ?>"> <?php echo $row['title']; ?></a>
+                          </li>
+                          <?php } ?>
+                      </ul>
+                  </li>
                   <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                  <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="#">Drop Down 1</a></li>
-                            <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                                <ul>
-                                    <li><a href="#">Deep Drop Down 1</a></li>
-                                    <li><a href="#">Deep Drop Down 2</a></li>
-                                    <li><a href="#">Deep Drop Down 3</a></li>
-                                    <li><a href="#">Deep Drop Down 4</a></li>
-                                    <li><a href="#">Deep Drop Down 5</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Drop Down 2</a></li>
-                            <li><a href="#">Drop Down 3</a></li>
-                            <li><a href="#">Drop Down 4</a></li>
-                        </ul>
-                    </li> -->
+
                   <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
               </ul>
               <i class="bi bi-list mobile-nav-toggle"></i>
