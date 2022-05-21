@@ -74,7 +74,12 @@ if (isset($_POST['order'])) {
                             </div>
                             <div class="my-3">
                             </div>
+                            <?php if (isset($_SESSION['id'])) { ?>
                             <div class="text-center"><button type="submit">Add to cart</button></div>
+                            <?php } else { ?>
+                            <input type="submit" name="signup" class="btns book" value="Book Now" disabled>
+                            <small class="text-muted">Please login to booking</small>
+                            <?php } ?>
                         </form>
                     </div>
                 </div>
@@ -82,3 +87,5 @@ if (isset($_POST['order'])) {
         </div>
     </div>
 </section><!-- End Portfolio Details Section -->
+
+<?php include "footer.php" ?>

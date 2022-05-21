@@ -98,8 +98,8 @@ if (isset($_POST['signup'])) {
                         </div>
 
                         <div class="my-3">
-                            <button type="submit" name="signup" class=" btn btn-primary">Login</button>
-                            <a href="login.php" class="btn btn-light">Don't have an account? Signup here</a>
+                            <button type="submit" name="signup" class=" btn btn-primary">Register</button>
+                            <a href="login.php" class="btn btn-light">Don't have an account? Login here</a>
                         </div>
                     </form>
                 </div>
