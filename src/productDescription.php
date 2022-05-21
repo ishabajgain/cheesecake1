@@ -1,45 +1,41 @@
-<?php session_start(); ?>
 <?php include "header.php";
 ?>
 <?php
 require "connection.php";
 $pid = $_GET['pid'];
-$details = $pdo->query("SELECT * FROM products p JOIN categories c ON p.category_id = c.id WHERE p.id = $pid")->fetch();
+$details = $pdo->query("SELECT * FROM products p JOIN categories c ON p.category_id = c.id WHERE p.p_id = $pid")->fetch();
 
 
 
 if (isset($_POST['order'])) {
 
-    // if (isset($_SESSION['customer_id'])) {
-    //     $member = $_SESSION['customer_id'];
-    // }
-
-    $stmt = $pdo->prepare("INSERT INTO booking(pickup, dropoff, location, vehicle_ID, user_ID, status)
-                VALUES(:pickup, :dropoff, :location, :vehicle_ID, :user_ID, '0')");
+    if (isset($_SESSION['customer_id'])) {
+        $member = $_SESSION['customer_id'];
+    }
+    $stmt = $pdo->prepare("INSERT INTO cart(p_id,u_id,quantity)
+                VALUES(:p_id, :u_id, :quantity)");
     $criteria = [
-        'pickup' => $_POST['pickup'],
-        'dropoff' => $_POST['dropoff'],
-        'location' => $_POST['location'],
-        'vehicle_ID' => $_POST['vehicle_ID'],
-        'user_ID' => $member
+        'p_id' => $pid,
+        'u_id' => $member,
+        'quantity' => $_POST['quantity'],
     ];
     $stmt->execute($criteria);
     if ($stmt == true) {
-        echo "<script>alert('Thank your for booking Car Rental!!');</script>";
+        echo "<script type='text/javascript'>toastr.success(`Added Successfully`)</script>";
+    } else {
+        echo "<script type='text/javascript'>toastr.error(`Something went wrong, unable to add product to cart`)</script>";
     }
 }
 ?>
 
 
 
-<section id="portfolio-details" class="main portfolio-details">
-
-
+<section id="products-details" class="main products-details">
     <div class="container">
         <div class="row gy-4">
 
             <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper">
+                <div class="products-details-slider swiper">
                     <div class="swiper-wrapper align-items-center">
 
                         <div class="swiper-slide">
@@ -52,15 +48,15 @@ if (isset($_POST['order'])) {
             </div>
 
             <div class="col-lg-4">
-                <div class="portfolio-info">
+                <div class="products-info">
                     <h3>Cake Information</h3>
                     <ul>
-                        <li><strong>Category:</strong> <?php echo  $details[8]; ?></li>
-                        <li><strong>Name:</strong> <?php echo  $details['title']; ?></li>
+                        <li><strong>Category:</strong> <?php echo  $details['title']; ?></li>
+                        <li><strong>Name:</strong> <?php echo  $details['product_name']; ?></li>
                         <li><strong>Price:</strong> <?php echo "$ " . number_format($details['price'], 2); ?></li>
                     </ul>
                 </div>
-                <div class="portfolio-description">
+                <div class="products-description">
                     <h2>Description</h2>
                     <p>
                         <?php echo  $details['description']; ?>
@@ -76,9 +72,9 @@ if (isset($_POST['order'])) {
                             <div class="my-3">
                             </div>
                             <?php if (isset($_SESSION['customer_id'])) { ?>
-                            <div class="text-center"><button type="submit">Add to cart</button></div>
+                            <div class="text-center"><button name="order" type="submit">Add to cart</button></div>
                             <?php } else { ?>
-                            <input type="submit" name="signup" class="btns book" value="Add to cart" disabled>
+                            <input type="submit" name="order" class="btns book" value="Add to cart" disabled>
                             <small class="text-muted">Please login to booking</small>
                             <?php } ?>
                         </form>
@@ -87,6 +83,6 @@ if (isset($_POST['order'])) {
             </div>
         </div>
     </div>
-</section><!-- End Portfolio Details Section -->
+</section><!-- End products Details Section -->
 
 <?php include "footer.php" ?>

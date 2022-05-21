@@ -49,6 +49,7 @@
                         include "connection.php";
                         $stmt = $pdo->prepare("SELECT * FROM categories WHERE id");
                         $stmt->execute();
+
                         foreach ($stmt as $row) {
                         ?>
                         <li>
@@ -57,8 +58,12 @@
                         <?php } ?>
                     </ul>
                 </li>
-                <?php if (isset($_SESSION['customer_id'])) { ?>
-                <li><a class="nav-link scrollto" href="cart.php">Cart</a></li>
+                <?php if (isset($_SESSION['customer_id'])) {
+                ?>
+
+
+                <li><a class="nav-link scrollto" href="cart.php"><i style="font-size: 1.5rem;" class="bi bi-cart2 "></i>
+                    </a></li>
                 <li><a class="nav-link scrollto" href="logout.php">Logout</a></li>
                 <?php } else { ?>
 
@@ -85,4 +90,4 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 <!-- Template Main JS File -->
-<script src="../assets/js/main.js"></script>
+<!-- <script src="../assets/js/main.js"></script> -->

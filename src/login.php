@@ -28,13 +28,20 @@ if (isset($_POST['login'])) {
         $user = $customer->fetch();
         if (password_verify($_POST['password'], $user['password'])) {
             session_start();
+            print_r($user);
             $_SESSION['customer'] = $user['email'];
-            $_SESSION['customer_id'] = $user['id'];
+            $_SESSION['customer_id'] = $user['u_id'];
             $_SESSION['customers'] = $user['full_name'];
             $_SESSION['is_admin'] = $user['is_admin'];
             $_SESSION['start'] = time();
             $_SESSION['expire'] = $_SESSION['start'] + (1800);
-            header('location:index.php');
+            if ($_SESSION['is_admin'] === 1) {
+                $_SESSION['admin_id'] = $user['u_id'];
+
+                header('location:admin/home.php');
+            } else {
+                header('location:index.php');
+            }
         } else {
             echo 'else';
             $fault = true;
@@ -43,7 +50,7 @@ if (isset($_POST['login'])) {
     echo 'else';
 
     if ($fault == true) {
-        echo "<script>alert('Email address and Password doesn\'t matched!<br>Please try again!');</script>";
+        echo "<script type='text/javascript'>toastr.error(`Email address and Password doesn\'t matched!<br>Please try again!`)</script>";
     }
 }
 
