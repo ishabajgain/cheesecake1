@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php include "header.php";
 ?>
 <?php
@@ -74,10 +75,10 @@ if (isset($_POST['order'])) {
                             </div>
                             <div class="my-3">
                             </div>
-                            <?php if (isset($_SESSION['id'])) { ?>
+                            <?php if (isset($_SESSION['customer_id'])) { ?>
                             <div class="text-center"><button type="submit">Add to cart</button></div>
                             <?php } else { ?>
-                            <input type="submit" name="signup" class="btns book" value="Book Now" disabled>
+                            <input type="submit" name="signup" class="btns book" value="Add to cart" disabled>
                             <small class="text-muted">Please login to booking</small>
                             <?php } ?>
                         </form>
