@@ -1,13 +1,12 @@
 <?php require "header.php"; ?>
 
+
 <?php
 if (session_id() == '' || !isset($_SESSION)) {
-  session_start();
+    session_start();
 }
-print_r($_SESSION);
 if (!isset($_SESSION['customer_id'])) {
-
-  header('location:index.php');
+    header('location:index.php');
 }
 ?>
 
@@ -20,7 +19,7 @@ if (!isset($_SESSION['customer_id'])) {
             <div class="second">
                 <div class="right">
                     <div class="welcome">
-                        <h2>Welcome to the Dashboard of Car Rental!!</h2>
+                        <h2>Welcome to the Dashboard of Cheesecake Shop</h2>
                     </div>
 
                     <div class="row">
@@ -37,9 +36,9 @@ if (!isset($_SESSION['customer_id'])) {
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                    require "../connection.php";
-                    $total = $pdo->query("SELECT count(*) as total FROM vehicle")->fetch();
-                    ?>
+                                        require "connection.php";
+                                        $total = $pdo->query("SELECT count(*) as total FROM products")->fetch();
+                                        ?>
                                         <span><?php echo $total['total']; ?></span><br>
                                         <a href="vehicledetails.php" class="vi">View Details</a>
                                     </div>
@@ -62,9 +61,9 @@ if (!isset($_SESSION['customer_id'])) {
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                    require "../connection.php";
-                    $verify = $pdo->query("SELECT count(*) as verify FROM users")->fetch();
-                    ?>
+                                        require "connection.php";
+                                        $verify = $pdo->query("SELECT count(*) as verify FROM users")->fetch();
+                                        ?>
                                         <span><?php echo $verify['verify']; ?></span><br>
                                         <a href="userdetails.php" class="vi">View Details</a>
                                     </div>
@@ -87,9 +86,9 @@ if (!isset($_SESSION['customer_id'])) {
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                    require "../conection.php";
-                    $pending = $pdo->query("SELECT count(*) as pending FROM booking")->fetch();
-                    ?>
+                                        require "connection.php";
+                                        $pending = $pdo->query("SELECT count(*) as pending FROM orders")->fetch();
+                                        ?>
                                         <span><?php echo $pending['pending']; ?></span><br>
                                         <a href="viewbooking.php" class="vi">View Details</a>
                                     </div>
@@ -112,9 +111,9 @@ if (!isset($_SESSION['customer_id'])) {
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                    require "../conection.php";
-                    $category = $pdo->query("SELECT count(*) as category FROM category")->fetch();
-                    ?>
+                                        require "connection.php";
+                                        $category = $pdo->query("SELECT count(*) as category FROM categories")->fetch();
+                                        ?>
                                         <span><?php echo $category['category']; ?></span><br>
                                         <a href="viewcategory.php" class="vi">View Details</a>
                                     </div>
@@ -139,4 +138,4 @@ if (!isset($_SESSION['customer_id'])) {
 
 
 
-<?php require "footer.php"; ?>
+<?php require "../src/footer.php"; ?>

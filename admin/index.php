@@ -1,50 +1,45 @@
 <?php
 if (session_id() == '' || !isset($_SESSION)) {
-	session_start();
+    session_start();
 }
-
-if (isset($_SESSION['admin_id'])) {
-?>
-<script type="text/javascript">
-window.location.href = "home.php";
-</script>
-<?php
+if (!isset($_SESSION['customer_id'])) {
+    header('location:index.php');
 }
 ?>
 
 <?php
-require "../connection.php";
+require "../src/connection.php";
+
 
 if (isset($_POST['login'])) {
-	$customer = $pdo->prepare("SELECT * FROM admin WHERE username = :username");
-	$criteria = [
-		'username' => $_POST['username']
-	];
-	$fault = false;
-	$customer->execute($criteria);
-	if ($customer->rowCount() > 0) {
-		$user = $customer->fetch();
-		if (password_verify($_POST['password'], $user['password'])) {
-			session_start();
-			$_SESSION['admin'] = $user['username'];
-			$_SESSION['admin_id'] = $user['admin_ID'];
-			$_SESSION['admins'] = $user['name'];
-			$_SESSION['start'] = time();
-			$_SESSION['expire'] = $_SESSION['start'] + (1800);
-			header('location:home.php');
-		} else
-			$fault = true;
-	} else $fault = true;
+    $customer = $pdo->prepare("SELECT * FROM admin WHERE username = :username");
+    $criteria = [
+        'username' => $_POST['username']
+    ];
+    $fault = false;
+    $customer->execute($criteria);
+    if ($customer->rowCount() > 0) {
+        $user = $customer->fetch();
+        if (password_verify($_POST['password'], $user['password'])) {
+            session_start();
+            $_SESSION['admin'] = $user['username'];
+            $_SESSION['admin_id'] = $user['admin_ID'];
+            $_SESSION['admins'] = $user['name'];
+            $_SESSION['start'] = time();
+            $_SESSION['expire'] = $_SESSION['start'] + (1800);
+            header('location:home.php');
+        } else
+            $fault = true;
+    } else $fault = true;
 
-	if ($fault == true) {
-		echo "<script>alert('Username and Password doesn\'t matched!<br>Please try again!');</script>";
-	}
+    if ($fault == true) {
+        echo "<script>alert('Username and Password doesn\'t matched!<br>Please try again!');</script>";
+    }
 }
 
 ?>
 
 
-<link rel="stylesheet" type="text/css" href="../css/style.css">
 <section class="login">
     <div class="loginss">
         <div class="admlogin">
@@ -77,4 +72,4 @@ if (isset($_POST['login'])) {
         </div>
     </div>
 </section>
-<?php require "footer.php"; ?>
+<?php require "../src/footer.php"; ?>

@@ -1,25 +1,27 @@
 <?php require "header.php"; ?>
 
+
 <?php
 if (session_id() == '' || !isset($_SESSION)) {
   session_start();
 }
-if (!isset($_SESSION['admin_id'])) {
+if (!isset($_SESSION['customer_id'])) {
   header('location:index.php');
 }
 ?>
 
 <?php
-require "../conection.php";
-$certificate = $pdo->prepare("SELECT * 
-            FROM category ");
-$certificate->execute();
+require "../src/connection.php";
+
+$contact = $pdo->prepare("SELECT * 
+            FROM contacts ");
+$contact->execute();
 
 if (isset($_GET['det'])) {
   $det = $_GET['det'];
-  $del = $pdo->prepare("DELETE FROM category WHERE category_ID = '$det'");
+  $del = $pdo->prepare("DELETE FROM contacts WHERE id = '$det'");
   $del->execute();
-  header('refresh:1;url=viewcategory.php');
+  header('refresh:1;url=contactdetails.php');
 }
 ?>
 
@@ -43,13 +45,19 @@ if (isset($_GET['det'])) {
 
             <table id="myTable">
               <tr class="header">
-                <th>Category</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Subject</th>
+                <th>Message</th>
                 <th>Action</th>
               </tr>
-              <?php foreach ($certificate as $row) { ?>
+              <?php foreach ($contact as $row) { ?>
                 <tr>
-                  <td><?php echo $row['category_name']; ?></td>
-                  <td><a <?php echo 'href="viewcategory.php?det=' . $row['category_ID'] . '"' ?>><i class="fas fa-recycle"></i></a></td>
+                  <td><?php echo $row['name']; ?></td>
+                  <td><?php echo $row['email'];   ?></td>
+                  <td><?php echo $row['subject']; ?></td>
+                  <td><?php echo $row['message']; ?></td>
+                  <td><a <?php echo 'href="contactdetails.php?det=' . $row['contact_ID'] . '"' ?>><i class="fas fa-recycle"></i></a></td>
                 </tr>
               <?php } ?>
             </table>
@@ -69,4 +77,4 @@ if (isset($_GET['det'])) {
 
 
 
-<?php require "footer.php"; ?>
+<?php require "../src/footer.php"; ?>
