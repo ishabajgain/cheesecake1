@@ -2,6 +2,8 @@
 
 <?php
 require "connection.php";
+$nameError = "";
+$emailError = "";
 
 function emailExists($pdo, $email)
 {
@@ -9,10 +11,13 @@ function emailExists($pdo, $email)
   $stmt->execute([$email]);
   return $stmt->fetchColumn();
 }
-
-const NAME_REQUIRED = 'Please enter your name';
-const EMAIL_REQUIRED = 'Please enter your email';
-const EMAIL_INVALID = 'Please enter a valid email';
+function check_input($data)
+{
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 
 if (isset($_POST['signup'])) {
   $password = $_POST['password'];
@@ -25,6 +30,25 @@ if (isset($_POST['signup'])) {
   } else if (emailExists($pdo, $email)) {
     echo "<script type='text/javascript'>toastr.error(`Email already exists, please login or use another email`)</script>";
   } else {
+    if (empty($_POST["full_name"])) {
+      $nameError = "Name is required";
+    } else {
+      $name = check_input($_POST["name"]);
+      // check name only contains letters and whitespace
+      if (!preg_match("/^[a-zA-Z ]*$/", $name)) {
+        $nameError = "Only letters and white space allowed";
+      }
+    }
+    if (empty($_POST["email"])) {
+      $emailError = "Email is required";
+    } else {
+      $email = check_input($_POST["email"]);
+      // check if e-mail address syntax is valid or not
+      if (!preg_match("/([w-]+@[w-]+.[w-]+)/", $email)) {
+        $emailError = "Invalid email format";
+      }
+    }
+
     $stmt = $pdo->prepare("INSERT INTO users(full_name, email, address, password, is_admin)
                 VALUES(:full_name, :email, :address, :password, :is_admin)");
     $criteria = [
@@ -56,12 +80,15 @@ if (isset($_POST['signup'])) {
                     <form action="#" method="POST" role="form" class="php-email-form">
                         <div class="form-group mt-3">
                             <input type="text" name="full_name" class="form-control" placeholder="Enter Name" required>
+                            <span class="error"> <?php echo $nameError; ?></span>
                         </div>
                         <div class="form-group mt-3">
                             <input type="text" name="address" class="form-control" placeholder="Enter Address" required>
+
                         </div>
                         <div class="form-group mt-3">
                             <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+                            <span class="error"> <?php echo $emailError; ?></span>
                         </div>
                         <div class="form-group mt-3">
                             <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
