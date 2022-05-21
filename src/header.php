@@ -57,8 +57,8 @@
                         <?php } ?>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" href="cart.php">Cart</a></li>
                 <?php if (isset($_SESSION['customer_id'])) { ?>
+                <li><a class="nav-link scrollto" href="cart.php">Cart</a></li>
                 <li><a class="nav-link scrollto" href="logout.php">Logout</a></li>
                 <?php } else { ?>
 
