@@ -56,11 +56,12 @@
                           <?php } ?>
                       </ul>
                   </li>
-                  <li><a class="nav-link scrollto" href="#team">Team</a></li>
-
+                  <li><a class="nav-link scrollto" href="cart.php">Cart</a></li>
+                  <li><a class="nav-link scrollto" href="login.php">Login</a></li>
                   <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
               </ul>
               <i class="bi bi-list mobile-nav-toggle"></i>
+
           </nav><!-- .navbar -->
       </div>
   </header><!-- End Header -->
@@ -72,6 +73,8 @@
   <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="../assets/vendor/php-email-form/validate.js"></script>
-
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
   <!-- Template Main JS File -->
   <script src="../assets/js/main.js"></script>

@@ -4,7 +4,7 @@
 <body>
     <!-- ======= Hero Section ======= -->
 
-    <main id="main mt-2">
+    <main id="main">
 
         <section id="about">
             <div class="container" data-aos="fade-up">
@@ -72,3 +72,5 @@
         </section><!-- End Team Section -->
     </main>
 </body>
+
+<?php include "footer.php" ?>

@@ -74,7 +74,7 @@ if (isset($_POST['order'])) {
                             </div>
                             <div class="my-3">
                             </div>
-                            <div class="text-center"><button type="submit">Send Message</button></div>
+                            <div class="text-center"><button type="submit">Add to cart</button></div>
                         </form>
                     </div>
                 </div>
