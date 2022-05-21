@@ -1,53 +1,83 @@
+<?php include('header.php'); ?>
+
+<?php
+require "connection.php";
+
+function emailExists($pdo, $email)
+{
+  $stmt = $pdo->prepare("SELECT 1 FROM users WHERE email=?");
+  $stmt->execute([$email]);
+  return $stmt->fetchColumn();
+}
+
+const NAME_REQUIRED = 'Please enter your name';
+const EMAIL_REQUIRED = 'Please enter your email';
+const EMAIL_INVALID = 'Please enter a valid email';
+
+if (isset($_POST['signup'])) {
+  $password = $_POST['password'];
+  $confpassword = $_POST['confpassword'];
+  $email = $_POST['email'];
 
 
-<?php include_once('partials/header.php');?>>
-		<link rel="stylesheet" type="text/css" href='css/style.css'>
-		<meta name="viewport" content="width=device-width, initial-scale=1">	
- <div class="img">
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-3">
-        <img class="img-fluid text-center rounded-circle mb-3" src="assets/images/common/logo.png" alt="">
-        <h1 class="text-center">Not a member?</h1>
-        <p>Sign Up</p><p>It is quick and easy</p>
-      </div>
+  if ($password != $confpassword) {
+    echo "<script type='text/javascript'>toastr.error(`Password don't match. Please try again`)</script>";
+  } else if (emailExists($pdo, $email)) {
+    echo "<script type='text/javascript'>toastr.error(`Email already exists, please login or use another email`)</script>";
+  } else {
+    $stmt = $pdo->prepare("INSERT INTO users(full_name, email, address, password, is_admin)
+                VALUES(:full_name, :email, :address, :password, :is_admin)");
+    $criteria = [
+      'full_name' => $_POST['full_name'],
+      'email' => $_POST['email'],
+      'address' => $_POST['address'],
+      'is_admin' => false,
+      'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+    ];
+    $stmt->execute($criteria);
+    if ($stmt == true) {
+      header('location:login.php');
+      echo `<script type="text/javascript">toastr.success("Registered Sucessfully, Please login")</script>`;
+    }
+  }
+}
+?>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<section id="login">
+    <div class="container mt-5">
+        <div class="section-header">
+            <h3 class="section-title">Register</h3>
+        </div>
     </div>
-      <div class="col-md-6">
-        <label for="firstName" class="form-label">First name</label>
-        <input type="text" class="form-control" id="firstName" name="FirstName" required="required">
-      </div>
-      <div class="col-md-6">
-        <label for="lastName" class="form-label">Last name</label>
-        <input type="text" class="form-control" id="lastName" name="LastName" required="required">
-      </div>
-      <div class="col-md-12">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="Email" required="required">
-      </div>
-      <div class="col-md-12">
-        <label for="inputPassword4" class="form-label">Password</label>
-        <input type="password" class="form-control" id="inputPassword4" name="Pass" required="required">
-      </div>
-         <div class="col-md-12">
-        <label for="inputPassword4" class="form-label">Confirm</label>
-        <input type="password" class="form-control" id="inputPassword4" name="Pass" required="required">
-      </div>
-      <div class="col-12">
-        <label for="inputAddress" class="form-label">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="u 10, Penshurst road" name="Address">
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Privacy" required="required">
-        <label class="form-check-label" for="exampleCheck1">Accept term & privacy settings</label>
-      </div>
-      <button type="submit" class="btn btn-primary">Register</button>
-      <a href="login.php" class="btn btn-light">Already have an account</button>
-    </form>
-  </div>
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8">
+                <div class="form">
+                    <form action="#" method="POST" role="form" class="php-email-form">
+                        <div class="form-group mt-3">
+                            <input type="text" name="full_name" class="form-control" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="text" name="address" class="form-control" placeholder="Enter Address" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="password" class="form-control" name="confpassword" placeholder="Enter Password Again" required>
+                        </div>
 
-
-  <script src="/assets/js/bootstrap.bundle.min.js"></script>
-</div>
-<?php include_once('partials/footer.php'); ?>
-
-
+                        <div class="my-3">
+                            <button type="submit" name="signup" class=" btn btn-primary">Login</button>
+                            <a href="login.php" class="btn btn-light">Don't have an account? Signup here</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- End Contact Section -->
+<?php include('footer.php'); ?>
