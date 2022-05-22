@@ -8,7 +8,7 @@ if (!isset($_SESSION['customer_id'])) {
 ?>
 
 <?php
-require "../src/connection.php";
+require "../connection.php";
 
 
 if (isset($_POST['login'])) {
@@ -72,4 +72,4 @@ if (isset($_POST['login'])) {
         </div>
     </div>
 </section>
-<?php require "../src/footer.php"; ?>
+<?php require "../footer.php"; ?>

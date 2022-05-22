@@ -3,24 +3,24 @@
 
 <?php
 if (session_id() == '' || !isset($_SESSION)) {
-  session_start();
+    session_start();
 }
 if (!isset($_SESSION['customer_id'])) {
-  header('location:index.php');
+    header('location:index.php');
 }
 ?>
 
 <?php
-require "../src/connection.php";
+require "../connection.php";
 $certificate = $pdo->prepare("SELECT * 
             FROM categories ");
 $certificate->execute();
 
 if (isset($_GET['det'])) {
-  $det = $_GET['det'];
-  $del = $pdo->prepare("DELETE FROM categories WHERE c_id = '$det'");
-  $del->execute();
-  header('refresh:1;url=viewcategory.php');
+    $det = $_GET['det'];
+    $del = $pdo->prepare("DELETE FROM categories WHERE c_id = '$det'");
+    $del->execute();
+    header('refresh:1;url=viewcategory.php');
 }
 ?>
 
@@ -48,10 +48,10 @@ if (isset($_GET['det'])) {
                                 <th>Action</th>
                             </tr>
                             <?php foreach ($certificate as $row) { ?>
-                            <tr>
-                                <td><?php echo $row['title']; ?></td>
-                                <td><a <?php echo 'href="viewcategory.php?det=' . $row['id'] . '"' ?>><i class="fas fa-recycle"></i></a></td>
-                            </tr>
+                                <tr>
+                                    <td><?php echo $row['title']; ?></td>
+                                    <td><a <?php echo 'href="viewcategory.php?det=' . $row['id'] . '"' ?>><i class="fas fa-recycle"></i></a></td>
+                                </tr>
                             <?php } ?>
                         </table>
 
@@ -70,4 +70,4 @@ if (isset($_GET['det'])) {
 
 
 
-<?php require "../src/footer.php"; ?>
+<?php require "../footer.php"; ?>

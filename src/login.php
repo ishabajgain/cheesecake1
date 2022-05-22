@@ -27,16 +27,18 @@ if (isset($_POST['login'])) {
     if ($customer->rowCount() > 0) {
         $user = $customer->fetch();
         if (password_verify($_POST['password'], $user['password'])) {
-            session_destroy();
-            session_start();
-            print_r($user);
+
+
             $_SESSION['customer'] = $user['email'];
             $_SESSION['customer_id'] = $user['u_id'];
             $_SESSION['customers'] = $user['full_name'];
             $_SESSION['is_admin'] = $user['is_admin'];
             $_SESSION['start'] = time();
             $_SESSION['expire'] = $_SESSION['start'] + (1800);
-            if ($_SESSION['is_admin'] !== 0) {
+
+            if (
+                $_SESSION['is_admin'] == 1
+            ) {
                 header('location:admin/home.php');
             } else {
                 header('location:index.php');

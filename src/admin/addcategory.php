@@ -4,26 +4,26 @@
 
 <?php
 if (session_id() == '' || !isset($_SESSION)) {
-  session_start();
+    session_start();
 }
 if (!isset($_SESSION['customer_id'])) {
-  header('location:index.php');
+    header('location:index.php');
 }
 ?>
 <?php
-require "../src/connection.php";
+require "../connection.php";
 
 if (isset($_POST['upload'])) {
 
-  $stmt = $pdo->prepare("INSERT INTO category(category_name)
+    $stmt = $pdo->prepare("INSERT INTO category(category_name)
               VALUES(:category_name)");
-  $criteria = [
-    'category_name' => $_POST['category_name']
-  ];
-  $stmt->execute($criteria);
-  if ($stmt == true) {
-    echo "<script>alert('Category added successfully.');</script>";
-  }
+    $criteria = [
+        'category_name' => $_POST['category_name']
+    ];
+    $stmt->execute($criteria);
+    if ($stmt == true) {
+        echo "<script>alert('Category added successfully.');</script>";
+    }
 }
 ?>
 
@@ -72,4 +72,4 @@ if (isset($_POST['upload'])) {
 
 
 
-<?php require "../src/footer.php"; ?>
+<?php require "../footer.php"; ?>

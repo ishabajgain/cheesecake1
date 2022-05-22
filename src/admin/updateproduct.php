@@ -4,14 +4,14 @@
 
 <?php
 if (session_id() == '' || !isset($_SESSION)) {
-  session_start();
+    session_start();
 }
 if (!isset($_SESSION['customer_id'])) {
-  header('location:index.php');
+    header('location:index.php');
 }
 ?>
 <?php
-require "../src/connection.php";
+require "../connection.php";
 
 
 $upd = $_GET['upd'];
@@ -19,7 +19,7 @@ $update = $pdo->query("SELECT * FROM vehicle WHERE vehicle_ID = '$upd'")->fetch(
 
 if (isset($_POST['update'])) {
 
-  $stmt = $pdo->prepare("UPDATE vehicle SET
+    $stmt = $pdo->prepare("UPDATE vehicle SET
         name = :name,
         brand = :brand,
         engine = :engine,
@@ -31,24 +31,24 @@ if (isset($_POST['update'])) {
         description = :description
         WHERE vehicle_ID = :upd
       ");
-  $criteria = [
-    'name' => $_POST['name'],
-    'brand' => $_POST['brand'],
-    'engine' => $_POST['engine'],
-    'status' => $_POST['status'],
-    'transmission' => $_POST['transmission'],
-    'features' => $_POST['features'],
-    'style' => $_POST['style'],
-    'price' => $_POST['price'],
-    'description' => $_POST['description'],
-    'upd' => $_GET['upd']
-  ];
+    $criteria = [
+        'name' => $_POST['name'],
+        'brand' => $_POST['brand'],
+        'engine' => $_POST['engine'],
+        'status' => $_POST['status'],
+        'transmission' => $_POST['transmission'],
+        'features' => $_POST['features'],
+        'style' => $_POST['style'],
+        'price' => $_POST['price'],
+        'description' => $_POST['description'],
+        'upd' => $_GET['upd']
+    ];
 
-  $success = $stmt->execute($criteria);
+    $success = $stmt->execute($criteria);
 
-  if ($success) {
-    header("Location:vehicledetails.php");
-  }
+    if ($success) {
+        header("Location:vehicledetails.php");
+    }
 }
 ?>
 
@@ -130,4 +130,4 @@ if (isset($_POST['update'])) {
 
 
 
-<?php require "../src/footer.php"; ?>
+<?php require "../footer.php"; ?>

@@ -10,7 +10,7 @@ if (!isset($_SESSION['customer_id'])) {
 }
 ?>
 <?php
-require "../src/connection.php";
+require "../connection.php";
 
 $certificate = $pdo->prepare("SELECT * 
             FROM vehicle
@@ -88,4 +88,4 @@ if (isset($_GET['det'])) {
 
 
 
-<?php require "../src/footer.php"; ?>
+<?php require "../footer.php"; ?>

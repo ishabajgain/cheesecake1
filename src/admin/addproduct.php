@@ -12,7 +12,7 @@ if (!isset($_SESSION['customer_id'])) {
 ?>
 
 <?php
-require "../src/connection.php";
+require "../connection.php";
 
 // isset function with variable
 if (isset($_POST['upload'])) {
@@ -123,4 +123,4 @@ if (isset($_POST['upload'])) {
 
 
 
-<?php require "../src/footer.php"; ?>
+<?php require "../footer.php"; ?>

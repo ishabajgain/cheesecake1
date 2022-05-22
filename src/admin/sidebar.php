@@ -1,5 +1,5 @@
 <?php
-require 'connection.php';
+require "../connection.php";
 
 $admin_id = $_SESSION['customer_id'];
 $userprofile = $pdo->prepare("SELECT * FROM users WHERE u_id = '$admin_id'");
@@ -10,8 +10,8 @@ $userprofile->execute();
 <div>
     <div class="center">
         <?php foreach ($userprofile as $row) { ?>
-        <h2><?php echo $row['full_name'] ?></h2>
-        <p><?php echo $row['email']; ?></p>
+            <h2><?php echo $row['full_name'] ?></h2>
+            <p><?php echo $row['email']; ?></p>
         <?php } ?>
     </div>
     <div>

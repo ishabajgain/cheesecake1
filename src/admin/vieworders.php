@@ -41,7 +41,7 @@ if (isset($_GET['type']) && $_GET['type'] != '') {
 
 
 
-require "../src/connection.php";
+require "../connection.php";
 
 $booking = $pdo->prepare("SELECT * 
             FROM orders o 
@@ -141,4 +141,4 @@ if (isset($_GET['det'])) {
 
 
 
-<?php require "../src/footer.php"; ?>
+<?php require "../footer.php"; ?>

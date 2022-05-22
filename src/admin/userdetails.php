@@ -3,25 +3,25 @@
 
 <?php
 if (session_id() == '' || !isset($_SESSION)) {
-  session_start();
+    session_start();
 }
 if (!isset($_SESSION['customer_id'])) {
-  header('location:index.php');
+    header('location:index.php');
 }
 ?>
 
 <?php
-require "../src/connection.php";
+require "../connection.php";
 $certificate = $pdo->prepare("SELECT * 
             FROM users
             LIMIT 15");
 $certificate->execute();
 
 if (isset($_GET['det'])) {
-  $det = $_GET['det'];
-  $del = $pdo->prepare("DELETE FROM users WHERE u_id = '$det'");
-  $del->execute();
-  header('refresh:1;url=userdetails.php');
+    $det = $_GET['det'];
+    $del = $pdo->prepare("DELETE FROM users WHERE u_id = '$det'");
+    $del->execute();
+    header('refresh:1;url=userdetails.php');
 }
 ?>
 
@@ -54,15 +54,15 @@ if (isset($_GET['det'])) {
                             </tr>
                             <?php $sn = 0; ?>
                             <?php foreach ($certificate as $row) { ?>
-                            <tr>
-                                <td><?php echo $sn + 1 ?></td>
-                                <td><?php echo $row['full_name']   ?></td>
-                                <td><?php echo $row['email']; ?></td>
-                                <td><?php echo $row['address']; ?></td>
-                                <td><a <?php echo 'href="userdetails.php?det=' . $row['u_id'] . '"' ?>><i class="fas fa-recycle"></i></a></td>
-                            </tr>
+                                <tr>
+                                    <td><?php echo $sn + 1 ?></td>
+                                    <td><?php echo $row['full_name']   ?></td>
+                                    <td><?php echo $row['email']; ?></td>
+                                    <td><?php echo $row['address']; ?></td>
+                                    <td><a <?php echo 'href="userdetails.php?det=' . $row['u_id'] . '"' ?>><i class="fas fa-recycle"></i></a></td>
+                                </tr>
                             <?php $sn++;
-              } ?>
+                            } ?>
                         </table>
 
                     </div>
@@ -80,4 +80,4 @@ if (isset($_GET['det'])) {
 
 
 
-<?php require "../src/footer.php"; ?>
+<?php require "../footer.php"; ?>

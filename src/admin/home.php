@@ -36,7 +36,8 @@ if (!isset($_SESSION['customer_id'])) {
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                                        require "connection.php";
+                                        require "../connection.php";
+
                                         $total = $pdo->query("SELECT count(*) as total FROM products")->fetch();
                                         ?>
                                         <span><?php echo $total['total']; ?></span><br>
@@ -61,7 +62,8 @@ if (!isset($_SESSION['customer_id'])) {
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                                        require "connection.php";
+                                        require "../connection.php";
+
                                         $verify = $pdo->query("SELECT count(*) as verify FROM users")->fetch();
                                         ?>
                                         <span><?php echo $verify['verify']; ?></span><br>
@@ -86,7 +88,8 @@ if (!isset($_SESSION['customer_id'])) {
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                                        require "connection.php";
+                                        require "../connection.php";
+
                                         $pending = $pdo->query("SELECT count(*) as pending FROM orders")->fetch();
                                         ?>
                                         <span><?php echo $pending['pending']; ?></span><br>
@@ -111,7 +114,8 @@ if (!isset($_SESSION['customer_id'])) {
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                                        require "connection.php";
+                                        require "../connection.php";
+
                                         $category = $pdo->query("SELECT count(*) as category FROM categories")->fetch();
                                         ?>
                                         <span><?php echo $category['category']; ?></span><br>
@@ -138,4 +142,4 @@ if (!isset($_SESSION['customer_id'])) {
 
 
 
-<?php require "../src/footer.php"; ?>
+<?php require "../footer.php"; ?>

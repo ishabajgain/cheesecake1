@@ -1,7 +1,7 @@
 <?php
 
 if (session_id() == '' || !isset($_SESSION)) {
-	session_start();
+    session_start();
 }
 ?>
 
@@ -12,7 +12,7 @@ if (session_id() == '' || !isset($_SESSION)) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Cheesecake Shop</title>
-    <link href="../assets/css/adminStyle.css" rel="stylesheet">
+    <link href="../../assets/css/adminStyle.css" rel="stylesheet">
 
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -39,8 +39,8 @@ if (session_id() == '' || !isset($_SESSION)) {
 
             <div class="nav-links" style="float:right; padding-top: 8px;">
                 <a class="adhome" href="index.php">Home</a>
-                <?php if (isset($_SESSION['admin_id'])) { ?>
-                <a class="adhome" href="logout.php">Logout</a>
+                <?php if (isset($_SESSION['customer_id'])) { ?>
+                <a class="adhome" href="../logout.php">Logout</a>
                 <?php } ?>
             </div>
         </div>
