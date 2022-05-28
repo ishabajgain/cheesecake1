@@ -15,10 +15,11 @@ require "../connection.php";
 
 if (isset($_POST['upload'])) {
 
-    $stmt = $pdo->prepare("INSERT INTO category(category_name)
-              VALUES(:category_name)");
+    $stmt = $pdo->prepare("INSERT INTO `categories`(id, title)
+              VALUES(:id, :category_name)");
     $criteria = [
-        'category_name' => $_POST['category_name']
+        'id' => $_POST['id'],
+        'title' => $_POST['category_name']
     ];
     $stmt->execute($criteria);
     if ($stmt == true) {
@@ -45,6 +46,10 @@ if (isset($_POST['upload'])) {
                                     <h2 class="lgs">Category</h2>
                                     <div>
                                         <form class="forms" method="POST" action="">
+                                        <div class="form-control form-controlss">
+                                                <div class="admform1"><label>ID</label></div>
+                                                <div class="admform2"><input type="integer" name="id" required></div>
+                                            </div>
                                             <div class="form-control form-controlss">
                                                 <div class="admform1"><label>Category Name</label></div>
                                                 <div class="admform2"><input type="text" name="category_name" required></div>

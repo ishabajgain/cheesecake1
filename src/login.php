@@ -1,6 +1,7 @@
 <?php include('header.php'); ?>
 <!-- ======= Login  Section ======= -->
 <?php
+
 if (session_id() == '' || !isset($_SESSION)) {
     session_start();
 }
@@ -16,7 +17,7 @@ window.location.href = "index.php";
 
 <?php
 require "connection.php";
-
+$user;
 if (isset($_POST['login'])) {
     $customer = $pdo->prepare("SELECT * FROM users WHERE email = :email");
     $criteria = [
@@ -28,7 +29,6 @@ if (isset($_POST['login'])) {
         $user = $customer->fetch();
         if (password_verify($_POST['password'], $user['password'])) {
 
-
             $_SESSION['customer'] = $user['email'];
             $_SESSION['customer_id'] = $user['u_id'];
             $_SESSION['customers'] = $user['full_name'];
@@ -37,20 +37,21 @@ if (isset($_POST['login'])) {
             $_SESSION['expire'] = $_SESSION['start'] + (1800);
 
             if (
-                $_SESSION['is_admin'] == 1
+                $user['is_admin']
             ) {
-                header('location:admin/home.php');
+                ('location:admin/home.php');
             } else {
-                header('location:index.php');
+                ("location:index.php");
             }
         } else {
             $fault = true;
         }
-    } else $fault = true;
-    echo 'else';
+    } else
+        $fault = true;
+
 
     if ($fault == true) {
-        echo "<script type='text/javascript'>toastr.error(`Email address and Password doesn\'t matched!<br>Please try again!`)</script>";
+        echo "<script type='text/javascript'>toastr.error(`Email address and Password doesn't matched!<br>Please try again!`)</script>";
     }
 }
 
@@ -90,4 +91,6 @@ if (isset($_POST['login'])) {
     </section><!-- End Contact Section -->
 
 </body>
-<?php include('footer.php'); ?>
+
+<?php include('footer.php');
+?>

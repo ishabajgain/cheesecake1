@@ -47,30 +47,42 @@
                     <ul>
                         <?php
                         include "connection.php";
-                        $stmt = $pdo->prepare("SELECT * FROM categories WHERE id");
+                        $stmt = $pdo->prepare("SELECT * FROM subcategories");
                         $stmt->execute();
 
                         foreach ($stmt as $row) {
                         ?>
                         <li>
-                            <a href="products.php?cid=<?php echo $row['id']; ?>"> <?php echo $row['title']; ?></a>
+                            <a href="subcategory.php?scid=<?php echo $row['id']; ?>"> <?php echo $row['title']; ?></a>
+
                         </li>
                         <?php } ?>
+
                     </ul>
                 </li>
+                <li> <a class="nav-link scrollto" href="search.php"><i style="font-size: 1.5rem;" class="bi bi-search"></i>
+                    </a> </li>
+
                 <?php if (isset($_SESSION['customer_id'])) {
                 ?>
 
 
                 <li><a class="nav-link scrollto" href="cart.php"><i style="font-size: 1.5rem;" class="bi bi-cart2 "></i>
                     </a></li>
+                <li> <a class="nav-link scrollto" href="wishlist.php"><i style="font-size: 1.5rem;" class="bi bi-heart"></i>
+                    </a> </li>
+                <li> <a class="nav-link scrollto" href="profile.php"> <i style="font-size: 25px;" class="bi bi-person-circle"></i></a> </li>
                 <li><a class="nav-link scrollto" href="logout.php">Logout</a></li>
+
+
                 <?php } else { ?>
 
                 <li><a class="nav-link scrollto" href="login.php">Login</a></li>
 
 
                 <?php } ?>
+
+
                 <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>

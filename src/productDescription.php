@@ -26,6 +26,27 @@ if (isset($_POST['order'])) {
         echo "<script type='text/javascript'>toastr.error(`Something went wrong, unable to add product to cart`)</script>";
     }
 }
+
+
+
+if (isset($_POST['wishlist'])) {
+
+    if (isset($_SESSION['customer_id'])) {
+        $member = $_SESSION['customer_id'];
+    }
+    $stmt = $pdo->prepare("INSERT INTO wishlist_items(product_id,user_id)
+                VALUES(:p_id, :u_id)");
+    $criteria = [
+        'p_id' => $pid,
+        'u_id' => $member,
+    ];
+    $stmt->execute($criteria);
+    if ($stmt == true) {
+        echo "<script type='text/javascript'>toastr.success(`Added Successfully to wishlist`)</script>";
+    } else {
+        echo "<script type='text/javascript'>toastr.error(`Something went wrong, unable to add product to wishlist`)</script>";
+    }
+}
 ?>
 
 
@@ -49,7 +70,13 @@ if (isset($_POST['order'])) {
 
             <div class="col-lg-4">
                 <div class="products-info">
-                    <h3>Cake Information</h3>
+                    <h3>Cake Information <span>
+                            <form action="" method="post">
+                                <button type="submit" name="wishlist">
+                                    <i style="font-size: 1.5rem;" class="bi bi-heart"></i>
+                                </button>
+                            </form>
+                        </span></h3>
                     <ul>
                         <li><strong>Category:</strong> <?php echo  $details['title']; ?></li>
                         <li><strong>Name:</strong> <?php echo  $details['product_name']; ?></li>

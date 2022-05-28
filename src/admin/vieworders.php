@@ -11,7 +11,7 @@ if (!isset($_SESSION['customer_id'])) {
 ?>
 <?php
 $con = mysqli_connect("localhost", "root", "", "cheesecakeshop");
-define('SERVER_PATH', $_SERVER['DOCUMENT_ROOT'] . '/php/vehicle/');
+define('SERVER_PATH', $_SERVER['DOCUMENT_ROOT'] . '/php/product/');
 define('SITE_PATH', '');
 
 function get_safe_value($con, $str)
@@ -21,25 +21,6 @@ function get_safe_value($con, $str)
     return mysqli_real_escape_string($con, $str);
   }
 }
-
-if (isset($_GET['type']) && $_GET['type'] != '') {
-  $type = get_safe_value($con, $_GET['type']);
-  if ($type == 'status') {
-    $operation = get_safe_value($con, $_GET['operation']);
-    $id = get_safe_value($con, $_GET['id']);
-    if ($operation == 'active') {
-      $status = '0';
-    } else {
-      $status = '1';
-    }
-    $update_status_sql = "update booking set status='$status' where booking_ID='$id'";
-    mysqli_query($con, $update_status_sql);
-  }
-}
-
-
-
-
 
 require "../connection.php";
 
@@ -53,84 +34,78 @@ $booking = $pdo->prepare("SELECT *
               ");
 $booking->execute();
 
-
-//  $sql="select * from booking  
-
-
-//     order by booking_ID asc";
-// $res=mysqli_query($con,$sql); 
-
-if (isset($_GET['det'])) {
+if (isset($_GET['delete'])) {
   $det = $_GET['det'];
-  $del = $pdo->prepare("DELETE FROM booking WHERE booking_ID = '$det'");
+  $del = $pdo->prepare("DELETE FROM orders WHERE u_id= '$det'");
   $del->execute();
-  header('refresh:1;url=viewbooking.php');
+  header('refresh:1;url=vieworders.php');
 }
 
 ?>
+<?php
+if (isset($_PUT["status"])) {
+  $id = $_GET['id'];
+  $status = $_PUT["status"];
+  print_r($update, $status);
+  $del = $pdo->prepare("UPDATE FROM orders SET order_status =$status WHERE u_id= '$det'");
+  $del->execute();
+  // header('refresh:1;url=vieworders.php');
+}
+?>
 
 <section>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="first">
-                <?php require "sidebar.php"; ?>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="first">
+        <?php require "sidebar.php"; ?>
+      </div>
+      <div class="second">
+        <div class="right">
+          <div class="detail">
+            <div class="row">
+              <div class="sort1">
+                <h3>View Booking Details</h3>
+              </div>
+              <div class="sort">
+                <input type="text" class="sorts" id="myInput" onkeyup="myFunction()" placeholder="Search ...." title="Type in a name">
+              </div>
             </div>
-            <div class="second">
-                <div class="right">
-                    <div class="detail">
-                        <div class="row">
-                            <div class="sort1">
-                                <h3>View Booking Details</h3>
-                            </div>
-                            <div class="sort">
-                                <input type="text" class="sorts" id="myInput" onkeyup="myFunction()" placeholder="Search ...." title="Type in a name">
-                            </div>
-                        </div>
+            <table id="myTable">
+              <tr class="header">
+                <th>Product Name</th>
+                <th>User</th>
+                <th>Total Quantity</th>
+                <th>Total Price</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+              <?php foreach ($booking as $row) { ?>
+                <tr>
+                  <td><?php echo $row['product_name']; ?></td>
+                  <td><?php echo $row['full_name']; ?></td>
+                  <td><?php echo $row['total_quantity']; ?></td>
+                  <td><?php echo $row['total_price']; ?></td>
+                  <td><?php echo $row['created_at']; ?></td>
+                  <td><?php echo $row['order_status']; ?></td>
+                  <td>
+                    <a style="font-size:20px;" name="delete" title="Delete Booking" <?php echo 'href="viewbooking.php?det=' . $row['id'] . '"' ?>>
+                      <i class="fas fa-recycle"></i></a>
 
-                        <table id="myTable">
-                            <tr class="header">
-                                <th>Product Name</th>
-                                <th>User</th>
-                                <th>Total Quantity</th>
-                                <th>Total Price</th>
-                                <th>Order Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                            <?php foreach ($booking as $row) { ?>
-                            <tr>
-                                <td><?php echo $row['product_name']; ?></td>
-                                <td><?php echo $row['full_name']; ?></td>
-                                <td><?php echo $row['total_quantity']; ?></td>
-                                <td><?php echo $row['total_price']; ?></td>
-                                <td><?php echo $row['created_at']; ?></td>
-                                <?php if ($row['order_status'] == "Delivered") { ?>
+                    <select name="status" onchange="this.form.submit()" <?php echo 'href="viewbooking.php?id=' . $row['id'] . '"' ?>>
+                      <option <?php if ($row['order_status'] == "Delivered") ?> value="Delivered"><?php echo "Delivered" ?></option>
+                      <option <?php if ($row['order_status'] == "Ready To Ship") ?> value="Ready To Ship""><?php echo "Ready To Ship" ?></option>
+                        <option <?php if ($row['order_status'] == "In Transit") ?> value=" In Transit"><?php echo  "In Transit" ?></option>
+                      <option <?php if ($row['order_status'] == "Cancelled") ?> value="Cancelled"><?php echo  "Cancelled" ?></option>
+                    </select>
+                  <?php } ?>
+            </table>
 
-                                <td><?php echo "Delivered"; ?></td>
-                                <?php } else if ($row['order_status' == "In Transit"]) {
-                  ?> <td><?php echo "Cancelled"; ?>
-                                </td>
-                                <?php } ?>
-                                <td>
-                                    <a style="font-size:20px;" title="Delete Booking" <?php echo 'href="viewbooking.php?det=' . $row['id'] . '"' ?>><i class="fas fa-recycle"></i></a>
-
-                                    <?php
-                    if ($row['order_status'] == "Cancelled") {
-                      echo "<span class='btna'><a class='btn btn-success bt mb-2' href='?type=status&operation=deactive&id=" . $row['id'] . "'>Approved</a></span>&nbsp;";
-                    } else {
-                      echo "<span class='btnd'><a class='btn btn-warning bt mb-2' href='?type=status&operation=active&id=" . $row['id'] . "'>Disapproved</a></span>&nbsp;";
-                    }
-                    ?>
-                                </td>
-                            </tr>
-                            <?php } ?>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
 

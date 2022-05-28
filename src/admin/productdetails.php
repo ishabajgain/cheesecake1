@@ -13,15 +13,15 @@ if (!isset($_SESSION['customer_id'])) {
 require "../connection.php";
 
 $certificate = $pdo->prepare("SELECT * 
-            FROM vehicle
+            FROM products
             ");
 $certificate->execute();
 
 if (isset($_GET['det'])) {
     $det = $_GET['det'];
-    $del = $pdo->prepare("DELETE FROM vehicle WHERE vehicle_ID = '$det'");
+    $del = $pdo->prepare("DELETE FROM products WHERE p_id = '$det'");
     $del->execute();
-    header('refresh:1;url=vehicledetails.php');
+    header('refresh:1;url=productdetails.php');
 }
 ?>
 
@@ -36,7 +36,7 @@ if (isset($_GET['det'])) {
                     <div class="detail">
                         <div class="row">
                             <div class="sort1">
-                                <h3>View Vehicle Details</h3>
+                                <h3>View Product Details</h3>
                             </div>
                             <div class="sort">
                                 <input type="text" class="sorts" id="myInput" onkeyup="myFunction()" placeholder="Search ...." title="Type in a name">
@@ -46,30 +46,20 @@ if (isset($_GET['det'])) {
                         <table id="myTable">
                             <tr class="header">
                                 <th>Name</th>
-                                <th>Brand</th>
-                                <th>Type</th>
-                                <th>Engine</th>
-                                <th>Status</th>
-                                <th>Features</th>
                                 <th>Price</th>
                                 <th>Description</th>
                                 <th>Action</th>
                             </tr>
                             <?php foreach ($certificate as $row) { ?>
-                                <tr>
-                                    <td><?php echo $row['name']; ?></td>
-                                    <td><?php echo $row['brand']; ?></td>
-                                    <td><?php echo $row['type']; ?></td>
-                                    <td><?php echo $row['engine']; ?></td>
-                                    <td><?php echo $row['status']; ?></td>
-                                    <td><?php echo $row['features']; ?></td>
-                                    <td><?php echo $row['price']; ?></td>
-                                    <td><?php echo substr($row['description'], 0, 200); ?>...</td>
-                                    <td>
-                                        <a style="font-size:20px;" title="Delete Vehicle" <?php echo 'href="vehicledetails.php?det=' . $row['vehicle_ID'] . '"' ?>><i class="fas fa-recycle"></i></a>
-                                        <a style="font-size:20px;" title="Update Vehicle" <?php echo 'href="updatevehicle.php?upd=' . $row['vehicle_ID'] . '"' ?>><i class="fas fa-edit"></i></a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td><?php echo $row['product_name']; ?></td>
+                                <td><?php echo $row['price']; ?></td>
+                                <td><?php echo substr($row['description'], 0, 200); ?>...</td>
+                                <td>
+                                    <a style="font-size:20px;" title="Delete Product" <?php echo 'href="productdetails.php?det=' . $row['p_id'] . '"' ?>><i class="fas fa-recycle"></i></a>
+                                    <a style="font-size:20px;" title="Update Product" <?php echo 'href="updateproduct.php?upd=' . $row['p_id'] . '"' ?>><i class="fas fa-edit"></i></a>
+                                </td>
+                            </tr>
                             <?php } ?>
                         </table>
 
