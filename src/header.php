@@ -60,8 +60,7 @@
 
                     </ul>
                 </li>
-                <li> <a class="nav-link scrollto" href="search.php"><i style="font-size: 1.5rem;" class="bi bi-search"></i>
-                    </a> </li>
+
 
                 <?php if (isset($_SESSION['customer_id'])) {
                 ?>
@@ -69,9 +68,12 @@
 
                 <li><a class="nav-link scrollto" href="cart.php"><i style="font-size: 1.5rem;" class="bi bi-cart2 "></i>
                     </a></li>
+                <li> <a class="nav-link scrollto" href="search.php"><i style="font-size: 1.5rem;" class="bi bi-search"></i>
+                    </a> </li>
                 <li> <a class="nav-link scrollto" href="wishlist.php"><i style="font-size: 1.5rem;" class="bi bi-heart"></i>
                     </a> </li>
                 <li> <a class="nav-link scrollto" href="profile.php"> <i style="font-size: 25px;" class="bi bi-person-circle"></i></a> </li>
+
                 <li><a class="nav-link scrollto" href="logout.php">Logout</a></li>
 
 

@@ -27,15 +27,12 @@ if (isset($_POST['signup'])) {
 
   if ($password != $confpassword) {
     echo "<script type='text/javascript'>toastr.error(`Password don't match. Please try again`)</script>";
-  }
-  else if (emailExists($pdo, $email)) {
+  } else if (emailExists($pdo, $email)) {
     echo "<script type='text/javascript'>toastr.error(`Email already exists, please login or use another email`)</script>";
-  }
-  else {
+  } else {
     if (empty($_POST["full_name"])) {
       $nameError = "Name is required";
-    }
-    else {
+    } else {
       $name = check_input($_POST["full_name"]);
       // check name only contains letters and whitespace
       if (!preg_match("/^[a-zA-Z ]*$/", $name)) {
@@ -44,29 +41,26 @@ if (isset($_POST['signup'])) {
     }
     if (empty($_POST["email"])) {
       $emailError = "Email is required";
-    }
-    else {
-      $email = check_input($_POST["email"]);
+    } else {
+      $email = $_POST["email"];
       // check if e-mail address syntax is valid or not
-      if (!preg_match("/([w-]+@[w-]+.[w-]+)/", $email)) {
-        $emailError = "Invalid email format";
-      }
+
     }
 
-    $stmt = $pdo->prepare("INSERT INTO users(full_name, email, address, password, dateJoined, is_admin)
-                VALUES(:full_name, :email, :address, :password,:dateJoined, :is_admin)");
+    $stmt = $pdo->prepare("INSERT INTO users(full_name, email, address, password, is_admin, dateJoined)
+                VALUES(:full_name, :email, :address, :password, :is_admin, :dateJoined)");
     $criteria = [
       'full_name' => $_POST['full_name'],
       'email' => $_POST['email'],
       'address' => $_POST['address'],
+      'is_admin' => 'client',
       'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
-      'dateJoined' => date('Y-m-d H:i:s'),
-      'is_admin' => 1,
+      'dateJoined' => date('Y-m-d h:i:s')
     ];
     $stmt->execute($criteria);
     if ($stmt == true) {
-      ('location:login.php');
       echo `<script type="text/javascript">toastr.success("Registered Sucessfully, Please login")</script>`;
+      ('location:login.php');
     }
   }
 }

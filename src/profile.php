@@ -2,10 +2,10 @@
 
 <?php
 if (session_id() == '' || !isset($_SESSION)) {
-  session_start();
+    session_start();
 }
 if (!isset($_SESSION['customer_id'])) {
-  header('location:login.php');
+    header('location:login.php');
 }
 ?>
 
@@ -53,13 +53,7 @@ $booking->execute();
                                 <td><?php echo $row['id']; ?></td>
                                 <td><?php echo $row['created_at']; ?></td>
                                 <td><?php echo $row['order_status']; ?></td>
-                                <?php if ($row['status'] == "0") { ?>
 
-                                <td><?php echo "Still Pending"; ?></td>
-                                <?php } else if ($row['status' == "1"]) {
-                  ?> <td><?php echo "Verified"; ?>
-                                </td>
-                                <?php } ?>
                                 <td><a <?php echo 'href="profile.php?view=' . $row['id'] . '"' ?>><i class="bi bi-recycle"></i></a></td>
                             </tr>
                             <?php } ?>

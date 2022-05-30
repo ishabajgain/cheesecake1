@@ -1,11 +1,11 @@
-<?php include('header.php'); ?>
-<!-- ======= Login  Section ======= -->
 <?php
+ob_start();
 
+include('header.php'); ?>
+<?php
 if (session_id() == '' || !isset($_SESSION)) {
     session_start();
 }
-
 if (isset($_SESSION['customer_id'])) {
 ?>
 <script type="text/javascript">
@@ -14,10 +14,9 @@ window.location.href = "index.php";
 <?php
 }
 ?>
-
 <?php
 require "connection.php";
-$user;
+
 if (isset($_POST['login'])) {
     $customer = $pdo->prepare("SELECT * FROM users WHERE email = :email");
     $criteria = [
@@ -29,29 +28,35 @@ if (isset($_POST['login'])) {
         $user = $customer->fetch();
         if (password_verify($_POST['password'], $user['password'])) {
 
-            $_SESSION['customer'] = $user['email'];
-            $_SESSION['customer_id'] = $user['u_id'];
-            $_SESSION['customers'] = $user['full_name'];
-            $_SESSION['is_admin'] = $user['is_admin'];
-            $_SESSION['start'] = time();
-            $_SESSION['expire'] = $_SESSION['start'] + (1800);
+            print_r($user);
 
-            if (
-                $user['is_admin']
-            ) {
-                ('location:admin/home.php');
+            if ($user['is_admin'] == '1') {
+
+                $_SESSION['customer'] = $user['email'];
+                $_SESSION['customer_id'] = $user['u_id'];
+                $_SESSION['customers'] = $user['full_name'];
+                $_SESSION['is_admin'] = $user['is_admin'];
+                $_SESSION['start'] = time();
+                $_SESSION['expire'] = $_SESSION['start'] + (1800);
+
+                header('location: admin/home.php');
             } else {
-                ("location:index.php");
+                $_SESSION['customer'] = $user['email'];
+                $_SESSION['customer_id'] = $user['u_id'];
+                $_SESSION['customers'] = $user['full_name'];
+                $_SESSION['is_admin'] = $user['is_admin'];
+                $_SESSION['start'] = time();
+                $_SESSION['expire'] = $_SESSION['start'] + (1800);
+                header('location: index.php');
             }
         } else {
             $fault = true;
         }
-    } else
-        $fault = true;
-
+    } else $fault = true;
+    echo 'else';
 
     if ($fault == true) {
-        echo "<script type='text/javascript'>toastr.error(`Email address and Password doesn't matched!<br>Please try again!`)</script>";
+        echo "<script type='text/javascript'>toastr.error(`Email address and Password doesn\'t matched!<br>Please try again!`)</script>";
     }
 }
 
@@ -91,6 +96,4 @@ if (isset($_POST['login'])) {
     </section><!-- End Contact Section -->
 
 </body>
-
-<?php include('footer.php');
-?>
+<?php include('footer.php'); ?>

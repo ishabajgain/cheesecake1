@@ -30,18 +30,18 @@ if (!isset($_SESSION['customer_id'])) {
                                         <h2>Total</h2>
                                     </div>
                                     <div class="data">
-                                        <p>Vehicles</p>
+                                        <p>Products</p>
                                     </div>
                                 </div>
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                                        require "../connection.php";
+require "../connection.php";
 
-                                        $total = $pdo->query("SELECT count(*) as total FROM products")->fetch();
-                                        ?>
+$total = $pdo->query("SELECT count(*) as total FROM products")->fetch();
+?>
                                         <span><?php echo $total['total']; ?></span><br>
-                                        <a href="vehicledetails.php" class="vi">View Details</a>
+                                        <a href="productDescription.php" class="vi">View Details</a>
                                     </div>
                                     <div class="graph">
                                         <span><i class="fas fa-signal"></i></span>
@@ -62,10 +62,10 @@ if (!isset($_SESSION['customer_id'])) {
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                                        require "../connection.php";
+require "../connection.php";
 
-                                        $verify = $pdo->query("SELECT count(*) as verify FROM users")->fetch();
-                                        ?>
+$verify = $pdo->query("SELECT count(*) as verify FROM users")->fetch();
+?>
                                         <span><?php echo $verify['verify']; ?></span><br>
                                         <a href="userdetails.php" class="vi">View Details</a>
                                     </div>
@@ -82,16 +82,16 @@ if (!isset($_SESSION['customer_id'])) {
                                         <h2>Total</h2>
                                     </div>
                                     <div class="data">
-                                        <p>Booking</p>
+                                        <p>Orderss</p>
                                     </div>
                                 </div>
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                                        require "../connection.php";
+require "../connection.php";
 
-                                        $pending = $pdo->query("SELECT count(*) as pending FROM orders")->fetch();
-                                        ?>
+$pending = $pdo->query("SELECT count(*) as pending FROM orders")->fetch();
+?>
                                         <span><?php echo $pending['pending']; ?></span><br>
                                         <a href="viewbooking.php" class="vi">View Details</a>
                                     </div>
@@ -114,10 +114,10 @@ if (!isset($_SESSION['customer_id'])) {
                                 <div class="row tlss">
                                     <div class="da">
                                         <?php
-                                        require "../connection.php";
+require "../connection.php";
 
-                                        $category = $pdo->query("SELECT count(*) as category FROM categories")->fetch();
-                                        ?>
+$category = $pdo->query("SELECT count(*) as category FROM categories")->fetch();
+?>
                                         <span><?php echo $category['category']; ?></span><br>
                                         <a href="viewcategory.php" class="vi">View Details</a>
                                     </div>

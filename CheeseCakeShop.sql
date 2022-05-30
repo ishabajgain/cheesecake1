@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2022 at 10:10 PM
--- Server version: 5.5.40
--- PHP Version: 5.5.19
+-- Generation Time: May 29, 2022 at 09:48 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,12 +26,12 @@ SET time_zone = "+00:00";
 -- Table structure for table `cart`
 --
 
-CREATE TABLE IF NOT EXISTS `cart` (
-`id` int(11) NOT NULL,
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
   `p_id` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `cart`
@@ -49,7 +49,7 @@ INSERT INTO `cart` (`id`, `p_id`, `u_id`, `quantity`) VALUES
 -- Table structure for table `categories`
 --
 
-CREATE TABLE IF NOT EXISTS `categories` (
+CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `p_id` int(11) DEFAULT NULL
@@ -60,7 +60,6 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 INSERT INTO `categories` (`id`, `title`, `p_id`) VALUES
-(0, 'new category', NULL),
 (1, 'Cheese Cakes', NULL),
 (2, 'Cakes', NULL),
 (3, 'Other Products', NULL);
@@ -71,26 +70,38 @@ INSERT INTO `categories` (`id`, `title`, `p_id`) VALUES
 -- Table structure for table `orders`
 --
 
-CREATE TABLE IF NOT EXISTS `orders` (
+CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `u_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `order_status` varchar(45) DEFAULT NULL,
   `pr_id` int(11) NOT NULL,
   `total_quantity` int(11) NOT NULL,
-  `total_price` int(11) DEFAULT NULL
+  `total_price` int(11) DEFAULT NULL,
+  `address` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `u_id`, `created_at`, `order_status`, `pr_id`, `total_quantity`, `total_price`) VALUES
-(2011, 20, '2020-11-10 19:10:10', 'Delivered', 0, 0, NULL),
-(2012, 21, '2021-01-10 14:10:10', 'In Transit', 0, 0, NULL),
-(2013, 22, '2021-01-11 13:10:10', 'Cancelled', 0, 0, NULL),
-(2014, 26, '2021-01-11 01:10:10', 'Ready to Ship', 112, 0, NULL),
-(2015, 26, '2021-02-10 20:10:10', 'Delivered', 112, 0, NULL);
+INSERT INTO `orders` (`id`, `u_id`, `created_at`, `order_status`, `pr_id`, `total_quantity`, `total_price`, `address`) VALUES
+(2011, 20, '2020-11-10 19:10:10', 'Delivered', 0, 0, NULL, ''),
+(2012, 21, '2021-01-10 14:10:10', 'In Transit', 0, 0, NULL, ''),
+(2013, 22, '2021-01-11 13:10:10', 'Cancelled', 0, 0, NULL, ''),
+(2014, 26, '2021-01-11 01:10:10', 'Cancelled', 112, 0, NULL, ''),
+(2015, 26, '2021-02-10 20:10:10', 'Ready To Ship', 112, 0, NULL, ''),
+(2016, 0, '0000-00-00 00:00:00', 'null', 112, 20, 900, ''),
+(2017, 0, '0000-00-00 00:00:00', 'null', 112, 20, 900, ''),
+(2018, 0, '0000-00-00 00:00:00', 'null', 112, 20, 900, ''),
+(2019, 0, '0000-00-00 00:00:00', 'null', 112, 20, 900, ''),
+(2020, 0, '0000-00-00 00:00:00', 'null', 112, 20, 900, ''),
+(2021, 0, '0000-00-00 00:00:00', 'null', 112, 20, 900, ''),
+(2022, 0, '0000-00-00 00:00:00', 'null', 112, 20, 900, ''),
+(2023, 27, '0000-00-00 00:00:00', '112', 20, 900, 0, ''),
+(2024, 27, '0000-00-00 00:00:00', 'null', 112, 20, 900, 'dfghjk'),
+(2025, 27, '0000-00-00 00:00:00', 'null', 112, 20, 900, 'dfghjk'),
+(2026, 27, '0000-00-00 00:00:00', 'null', 112, 20, 900, 'dfghjk');
 
 -- --------------------------------------------------------
 
@@ -98,12 +109,12 @@ INSERT INTO `orders` (`id`, `u_id`, `created_at`, `order_status`, `pr_id`, `tota
 -- Table structure for table `order_items`
 --
 
-CREATE TABLE IF NOT EXISTS `order_items` (
-`o_id` int(11) NOT NULL,
+CREATE TABLE `order_items` (
+  `o_id` int(11) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `total_amount` decimal(10,0) DEFAULT NULL,
   `items` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2015 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `order_items`
@@ -124,15 +135,15 @@ INSERT INTO `order_items` (`o_id`, `quantity`, `total_amount`, `items`) VALUES
 -- Table structure for table `payments`
 --
 
-CREATE TABLE IF NOT EXISTS `payments` (
-`id` int(11) NOT NULL,
+CREATE TABLE `payments` (
+  `id` int(11) NOT NULL,
   `order_number` int(11) DEFAULT NULL,
   `cardholder_name` varchar(45) DEFAULT NULL,
   `card_number` int(11) DEFAULT NULL,
   `card_expiry` datetime DEFAULT NULL,
   `card_cvv` int(11) DEFAULT NULL,
   `payment_status` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `payments`
@@ -151,15 +162,15 @@ INSERT INTO `payments` (`id`, `order_number`, `cardholder_name`, `card_number`, 
 -- Table structure for table `products`
 --
 
-CREATE TABLE IF NOT EXISTS `products` (
-`p_id` int(11) NOT NULL,
+CREATE TABLE `products` (
+  `p_id` int(11) NOT NULL,
   `product_name` varchar(45) DEFAULT NULL,
   `price` decimal(10,0) DEFAULT NULL,
-  `description` longtext,
+  `description` longtext DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `image_path` varchar(255) DEFAULT NULL,
   `subcategory_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
@@ -182,11 +193,11 @@ INSERT INTO `products` (`p_id`, `product_name`, `price`, `description`, `categor
 -- Table structure for table `shipping`
 --
 
-CREATE TABLE IF NOT EXISTS `shipping` (
-`id` int(11) NOT NULL,
+CREATE TABLE `shipping` (
+  `id` int(11) NOT NULL,
   `o_id` int(11) DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `shipping`
@@ -205,11 +216,11 @@ INSERT INTO `shipping` (`id`, `o_id`, `address`) VALUES
 -- Table structure for table `subcategories`
 --
 
-CREATE TABLE IF NOT EXISTS `subcategories` (
-`id` int(11) NOT NULL,
+CREATE TABLE `subcategories` (
+  `id` int(11) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `category` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `subcategories`
@@ -230,15 +241,15 @@ INSERT INTO `subcategories` (`id`, `title`, `category`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-`u_id` int(11) NOT NULL,
+CREATE TABLE `users` (
+  `u_id` int(11) NOT NULL,
   `full_name` varchar(45) NOT NULL,
   `address` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
   `email` varchar(250) DEFAULT NULL,
   `dateJoined` datetime NOT NULL,
   `is_admin` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -263,11 +274,11 @@ INSERT INTO `users` (`u_id`, `full_name`, `address`, `password`, `email`, `dateJ
 -- Table structure for table `wishlist_items`
 --
 
-CREATE TABLE IF NOT EXISTS `wishlist_items` (
-`id` int(11) NOT NULL,
+CREATE TABLE `wishlist_items` (
+  `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `wishlist_items`
@@ -284,61 +295,74 @@ INSERT INTO `wishlist_items` (`id`, `product_id`, `user_id`) VALUES
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
- ADD PRIMARY KEY (`id`), ADD KEY `users_FK` (`u_id`), ADD KEY `products_FK` (`p_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `users_FK` (`u_id`),
+  ADD KEY `products_FK` (`p_id`);
 
 --
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
- ADD PRIMARY KEY (`id`), ADD KEY `p_id_idx` (`p_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `p_id_idx` (`p_id`);
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
- ADD PRIMARY KEY (`id`), ADD KEY `user_id_idx` (`u_id`), ADD KEY `u_id_idx` (`u_id`), ADD KEY `fk_pr_id` (`pr_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id_idx` (`u_id`),
+  ADD KEY `u_id_idx` (`u_id`),
+  ADD KEY `fk_pr_id` (`pr_id`);
 
 --
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
- ADD PRIMARY KEY (`o_id`,`items`);
+  ADD PRIMARY KEY (`o_id`,`items`);
 
 --
 -- Indexes for table `payments`
 --
 ALTER TABLE `payments`
- ADD PRIMARY KEY (`id`), ADD KEY `order_id_idx` (`order_number`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id_idx` (`order_number`);
 
 --
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
- ADD PRIMARY KEY (`p_id`), ADD KEY `category_id_idx` (`category_id`), ADD KEY `subcategory_id_idx` (`subcategory_id`);
+  ADD PRIMARY KEY (`p_id`),
+  ADD KEY `category_id_idx` (`category_id`),
+  ADD KEY `subcategory_id_idx` (`subcategory_id`);
 
 --
 -- Indexes for table `shipping`
 --
 ALTER TABLE `shipping`
- ADD PRIMARY KEY (`id`), ADD KEY `o_id_idx` (`o_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `o_id_idx` (`o_id`);
 
 --
 -- Indexes for table `subcategories`
 --
 ALTER TABLE `subcategories`
- ADD PRIMARY KEY (`id`), ADD KEY `category_idx` (`category`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category_idx` (`category`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
- ADD PRIMARY KEY (`u_id`);
+  ADD PRIMARY KEY (`u_id`);
 
 --
 -- Indexes for table `wishlist_items`
 --
 ALTER TABLE `wishlist_items`
- ADD PRIMARY KEY (`id`), ADD KEY `user_id_idx` (`user_id`), ADD KEY `product_id_idx` (`product_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id_idx` (`user_id`),
+  ADD KEY `product_id_idx` (`product_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -348,42 +372,62 @@ ALTER TABLE `wishlist_items`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2027;
+
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-MODIFY `o_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2015;
+  MODIFY `o_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2015;
+
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=122;
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+
 --
 -- AUTO_INCREMENT for table `shipping`
 --
 ALTER TABLE `shipping`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=106;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+
 --
 -- AUTO_INCREMENT for table `subcategories`
 --
 ALTER TABLE `subcategories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
 --
 -- AUTO_INCREMENT for table `wishlist_items`
 --
 ALTER TABLE `wishlist_items`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- Constraints for dumped tables
 --
@@ -392,46 +436,40 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
-ADD CONSTRAINT `products_FK` FOREIGN KEY (`p_id`) REFERENCES `products` (`p_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `users_FK` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `products_FK` FOREIGN KEY (`p_id`) REFERENCES `products` (`p_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_FK` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `categories`
 --
 ALTER TABLE `categories`
-ADD CONSTRAINT `p_id` FOREIGN KEY (`p_id`) REFERENCES `products` (`p_id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-ADD CONSTRAINT `fk_pr_id` FOREIGN KEY (`pr_id`) REFERENCES `products` (`p_id`),
-ADD CONSTRAINT `u_id` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `p_id` FOREIGN KEY (`p_id`) REFERENCES `products` (`p_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `payments`
 --
 ALTER TABLE `payments`
-ADD CONSTRAINT `order_number` FOREIGN KEY (`order_number`) REFERENCES `orders` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `order_number` FOREIGN KEY (`order_number`) REFERENCES `orders` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `shipping`
 --
 ALTER TABLE `shipping`
-ADD CONSTRAINT `o_id` FOREIGN KEY (`o_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `o_id` FOREIGN KEY (`o_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `subcategories`
 --
 ALTER TABLE `subcategories`
-ADD CONSTRAINT `category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `wishlist_items`
 --
 ALTER TABLE `wishlist_items`
-ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`p_id`) ON UPDATE CASCADE,
-ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`u_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`p_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`u_id`) ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

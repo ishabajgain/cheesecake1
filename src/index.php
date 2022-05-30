@@ -8,7 +8,7 @@ include "connection.php";
         <div class="hero-container" data-aos="zoom-in" data-aos-delay="100">
             <h1>Welcome to Cheese Cake Shop</h1>
             <h2>Cheese is better when it's on a cake</h2>
-            <a href="products.php" class="btn-get-started">Get Started</a>
+            <a href="subcategory.php" class="btn-get-started">Get Started</a>
         </div>
     </section><!-- End Hero Section -->
 

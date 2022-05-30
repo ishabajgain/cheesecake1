@@ -15,11 +15,11 @@ require "../connection.php";
 
 if (isset($_POST['upload'])) {
 
-    $stmt = $pdo->prepare("INSERT INTO `categories`(id, title)
-              VALUES(:id, :category_name)");
+    $stmt = $pdo->prepare("INSERT INTO categories(title)
+              VALUES( :title)");
     $criteria = [
-        'id' => $_POST['id'],
-        'title' => $_POST['category_name']
+
+        'title' => $_POST['title']
     ];
     $stmt->execute($criteria);
     if ($stmt == true) {
@@ -41,32 +41,31 @@ if (isset($_POST['upload'])) {
                 <div class="right">
                     <div>
                         <section>
-                            <div class="apps">
-                                <div class=" app" style="background: #001489;">
-                                    <h2 class="lgs">Category</h2>
+                            <div class="second">
+                                <div class="right">
                                     <div>
-                                        <form class="forms" method="POST" action="">
-                                        <div class="form-control form-controlss">
-                                                <div class="admform1"><label>ID</label></div>
-                                                <div class="admform2"><input type="integer" name="id" required></div>
-                                            </div>
-                                            <div class="form-control form-controlss">
-                                                <div class="admform1"><label>Category Name</label></div>
-                                                <div class="admform2"><input type="text" name="category_name" required></div>
-                                            </div>
-                                            <div class="form-control logs logss appss">
-                                                <input type="submit" name="upload" class="log" value="Add">
-                                            </div>
-                                        </form>
+                                        <section>
+                                            <div class="apps">
+                                                <div class=" app" style="background: #001489;">
+                                                    <h2 class="lgs">Category</h2>
+                                                    <div>
+                                                        <form class="forms" method="POST" action="">
+                                                            <div class="form-control form-controlss">
+                                                                <div class="admform1"><label>Category Name</label></div>
+                                                                <div class="admform2"><input type="text" name="title" required></div>
+                                                            </div>
+                                                            <div class="form-control logs logss appss">
+                                                                <input type="submit" name="upload" class="log" value="Add">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                        </section>
                                     </div>
                                 </div>
                             </div>
-                        </section>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 </section>
 
 

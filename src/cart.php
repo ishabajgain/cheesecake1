@@ -6,25 +6,7 @@
         $member = $_SESSION['customer_id'];
     }
 
-    if (isset($_POST['checkout'])) {
-        echo "hello";
-        if (isset($_SESSION['customer_id'])) {
-            $member = $_SESSION['customer_id'];
-        }
 
-        $stmt = $pdo->prepare("INSERT INTO orders(u_id, order_status, pr_id,total_quantity, total_price)
-                VALUES($member, :order_status, :order_status,:pr_id,:total_quantity,:total_price)");
-        $criteria = [
-            'pr_id' => $row['id'],
-            'order_status' => null,
-            'total_quantity' => $row["sum(quantity)"],
-            'total_price' => $row["sum(price)"],
-        ];
-        $stmt->execute($criteria);
-        if ($stmt == true) {
-            echo "<script>alert('Thank your for placing an order!!');</script>";
-        }
-    }
 
     if (isset($_GET['det'])) {
         $det = $_GET['det'];
@@ -34,7 +16,6 @@
     }
     ?>
 
-    ?>
     <section class="content">
         <!-- ======= products Section ======= -->
         <section id="products" class="main products">
@@ -63,20 +44,33 @@
                             $result = $stmt->fetchAll();
                             foreach ($result as $row) {
                             ?>
-                            <tbody>
-                                <tr>
+                                <form>
 
-                                    <td> <img src="../assets/img/products/<?php echo $row['image_path']; ?>" style="height:50px;width:50px;" class="img-fluid" alt="image of product"></td>
-                                    <td><?php echo $row['product_name']; ?></td>
-                                    <td><?php echo "$ " . number_format($row['price'], 2); ?></td>
-                                    <td><?php echo $row['quantity']; ?></td>
+                                    <tbody>
+                                        <tr>
 
-                                    <td>
-                                        <a style="font-size:20px;" class="text-danger" title="Delete Product" <?php echo 'href="cart.php?det=' . $row['id'] . '"' ?>> Delete</a>
-                                    </td>
+                                            <td> <img src="../assets/img/products/<?php echo $row['image_path']; ?>" style="height:50px;width:50px;" class="img-fluid" alt="image of product"></td>
+                                            <td><?php echo $row['product_name']; ?></td>
+                                            <td><?php echo "$ " . number_format($row['price'], 2); ?></td>
+                                            <td><?php echo  $row['quantity']; ?></td>
+                                            <td>
 
-                                </tr>
-                            </tbody>
+
+                                                <div class="text-center"><a href="checkout.php?cid=<?php echo $row['id']; ?>" name="checkout" type="submit">Checkout</a>
+
+                                                    <a class="text-danger" type="submit" name="delete">
+                                                        Delete
+                                                    </a>
+                                                </div>
+
+
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </form>
+
+
                             <?php
                             } ?>
                             <?php
@@ -86,23 +80,27 @@
                             $result = $stmt->fetchAll();
                             foreach ($result as $row) {
                             ?>
-                            <td><b>Total</b></td>
-                            <td></td>
-                            <td>
-                                <?php echo "$ " . number_format($row["sum(price)"], 2); ?>
-                            </td>
-                            <td> <?php echo $row["sum(quantity)"]; ?>
-                            </td>
-                            <td></td>
-                            <tr>
-                                <td>Grand Total:</td>
+                                <td><b>Total</b></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td> <?php echo "$ " . number_format($row["sum(price)"] * $row["sum(quantity)"], 2); ?>
+                                <td>
+                                    <?php echo "$ " . number_format($row["sum(price)"], 2); ?>
                                 </td>
-                                <td> <a href="payment.php" button type="submit" name="checkout"> Checkout</button></td>
-                            </tr>
+                                <td> <?php echo $row["sum(quantity)"]; ?>
+                                </td>
+                                <td></td>
+                                <tr>
+                                    <td>Grand Total:</td>
+                                    <td></td>
+
+                                    <td> <?php
+                                            echo "$ " . number_format($row["sum(quantity)"] * $row["sum(price)"], 2);
+                                            ?>
+                                    </td>
+                                    <td></td>
+
+                                    <td></td>
+
+                                </tr>
                             <?php
                             } ?>
                         </table>

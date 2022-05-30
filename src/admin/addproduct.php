@@ -26,21 +26,22 @@ if (isset($_POST['upload'])) {
     $imgExtns = strtolower(pathinfo($img, PATHINFO_EXTENSION));
     $validExtns = array('jpg', 'jpeg', 'gif', 'png');
     $imageName = rand(100, 100000) . "." . $imgExtns;
-    move_uploaded_file($img_dir, $uploading_dir . $imageName);
+    // move_uploaded_file($img_dir, $uploading_dir . $imageName);
 
     // insert query
-    $stmt = $pdo->prepare("INSERT INTO products(product_name, price,category_id, description, image_path)
-      VALUES (:product_name, :price,:category_id,  :description, :image_path)");
+    $stmt = $pdo->prepare("INSERT INTO products(product_name, price,category_id, description, image_path, subcategory_id)
+      VALUES (:product_name, :price,:category_id,  :description, :image_path, :subcategory_id)");
     $criteria = [
         'product_name' => $_POST['name'],
         'price' => $_POST['price'],
         'category_id' => $_POST['category_id'],
         'description' => $_POST['description'],
-        'image_path' => $imageName
+        'image_path' => $imageName,
+        'subcategory_id' => $_POST['subcategory_id']
     ];
     $success = $stmt->execute($criteria);
     // checking file is successfully upload
-    if ($stmt == true) {
+    if ($success == true) {
         echo "<script type='text/javascript'>toastr.error(`Product added successfully`)</script>";
     }
 }
@@ -86,6 +87,25 @@ if (isset($_POST['upload'])) {
                                                             $selected = ($row['c_id'] == $catid) ? 'selected' : '';
                                                             echo "
                                         <option value='" . $row['c_id'] . "' " . $selected . ">" . $row['title'] . "</option>
+                                      ";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-control form-controlss">
+                                                <div class="admform1"><label>Sub Category</label></div>
+                                                <div class="admform2">
+                                                    <select name="subcategory_id" class="select" required>
+                                                        <option value="">Select Sub Category</option>
+                                                        <?php
+                                                        $stmt = $pdo->prepare("SELECT * FROM subcategories");
+                                                        $stmt->execute();
+
+                                                        foreach ($stmt as $row) {
+                                                            $selected = ($row['sc_id'] == $scatid) ? 'selected' : '';
+                                                            echo "
+                                        <option value='" . $row['id'] . "' " . $selected . ">" . $row['title'] . "</option>
                                       ";
                                                         }
                                                         ?>

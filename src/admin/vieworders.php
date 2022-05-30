@@ -54,58 +54,73 @@ if (isset($_PUT["status"])) {
 ?>
 
 <section>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="first">
-        <?php require "sidebar.php"; ?>
-      </div>
-      <div class="second">
-        <div class="right">
-          <div class="detail">
-            <div class="row">
-              <div class="sort1">
-                <h3>View Booking Details</h3>
-              </div>
-              <div class="sort">
-                <input type="text" class="sorts" id="myInput" onkeyup="myFunction()" placeholder="Search ...." title="Type in a name">
-              </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="first">
+                <?php require "sidebar.php"; ?>
             </div>
-            <table id="myTable">
-              <tr class="header">
-                <th>Product Name</th>
-                <th>User</th>
-                <th>Total Quantity</th>
-                <th>Total Price</th>
-                <th>Order Date</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <?php foreach ($booking as $row) { ?>
-                <tr>
-                  <td><?php echo $row['product_name']; ?></td>
-                  <td><?php echo $row['full_name']; ?></td>
-                  <td><?php echo $row['total_quantity']; ?></td>
-                  <td><?php echo $row['total_price']; ?></td>
-                  <td><?php echo $row['created_at']; ?></td>
-                  <td><?php echo $row['order_status']; ?></td>
-                  <td>
-                    <a style="font-size:20px;" name="delete" title="Delete Booking" <?php echo 'href="viewbooking.php?det=' . $row['id'] . '"' ?>>
-                      <i class="fas fa-recycle"></i></a>
+            <div class="second">
+                <div class="right">
+                    <div class="detail">
+                        <div class="row">
+                            <div class="sort1">
+                                <h3>View Booking Details</h3>
+                            </div>
+                            <div class="sort">
+                                <input type="text" class="sorts" id="myInput" onkeyup="myFunction()" placeholder="Search ...." title="Type in a name">
+                            </div>
+                        </div>
+                        <div class="second">
+                            <div class="right">
+                                <div class="detail">
+                                    <div class="row">
+                                        <div class="sort1">
+                                            <h3>View Booking Details</h3>
+                                        </div>
+                                        <div class="sort">
+                                            <input type="text" class="sorts" id="myInput" onkeyup="myFunction()" placeholder="Search ...." title="Type in a name">
+                                        </div>
+                                    </div>
+                                    <table id="myTable">
+                                        <tr class="header">
+                                            <th>Product Name</th>
+                                            <th>User</th>
+                                            <th>Total Quantity</th>
+                                            <th>Address</th>
+                                            <th>Total Price</th>
+                                            <th>Order Date</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <?php foreach ($booking as $row) { ?>
+                                        <tr>
+                                            <td><?php echo $row['product_name']; ?></td>
+                                            <td><?php echo $row['full_name']; ?></td>
+                                            <td><?php echo $row['total_quantity']; ?></td>
+                                            <td><?php echo $row['7']; ?></td>
+                                            <td><?php echo $row['total_price']; ?></td>
+                                            <td><?php echo $row['created_at']; ?></td>
+                                            <td><?php echo $row['order_status']; ?></td>
+                                            <td>
+                                                <a style="font-size:20px;" name="delete" title="Delete Booking" <?php echo 'href="viewbooking.php?det=' . $row['id'] . '"' ?>>
+                                                    <i class="fas fa-recycle"></i></a>
+                                            </td>
+                                            <td>
+                                                <a style="font-size:20px;" title="Update Product" <?php echo 'href="updatestatus.php?upd=' . $row['id'] . '"' ?>><i class="fas fa-edit"></i></a>
 
-                    <select name="status" onchange="this.form.submit()" <?php echo 'href="viewbooking.php?id=' . $row['id'] . '"' ?>>
-                      <option <?php if ($row['order_status'] == "Delivered") ?> value="Delivered"><?php echo "Delivered" ?></option>
-                      <option <?php if ($row['order_status'] == "Ready To Ship") ?> value="Ready To Ship""><?php echo "Ready To Ship" ?></option>
-                        <option <?php if ($row['order_status'] == "In Transit") ?> value=" In Transit"><?php echo  "In Transit" ?></option>
-                      <option <?php if ($row['order_status'] == "Cancelled") ?> value="Cancelled"><?php echo  "Cancelled" ?></option>
-                    </select>
-                  <?php } ?>
-            </table>
+                                            </td>
 
-          </div>
+
+                                            <?php } ?>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 
